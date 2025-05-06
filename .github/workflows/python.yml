@@ -34,6 +34,9 @@ jobs:
         flake8 . --exclude=.venv --max-line-length=120
 
     - name: Execute main.py for basic test
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       run: |
         source .venv/bin/activate
         python src/main.py --max-turns 0
