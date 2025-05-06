@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m venv .venv
+        source .venv/bin/activate
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Check code with flake8
+      run: |
+        source .venv/bin/activate
+        pip install flake8
+        flake8 . --exclude=.venv --max-line-length=120
+
+    - name: Execute main.py for basic test
+      run: |
+        source .venv/bin/activate
+        python src/main.py --max-turns 0

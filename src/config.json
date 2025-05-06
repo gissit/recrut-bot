@@ -1,0 +1,21 @@
+{
+  "ia": {
+    "geminiModel": "gemini-1.5-pro-latest",
+    "openAiModel": "gpt-4o-mini",
+    "temperature": 0.9
+  },
+  "persona": {
+    "recruiter": "GEMINI (recruteur) -- ",
+    "recruiterContextFile": "docs/job_description.txt",
+    "recruiterPromptFile": "prompts/recruiter.txt",
+    "candidate": "OPENAI (candidat) -- ",
+    "candidateContextFile": "docs/candidates_resume.pdf",
+    "candidatePromptFile": "prompts/candidate.txt"
+  },
+  "prompt": {
+    "initial": "Recruter un candidat dont le CV est {CV_CONTEXT} pour la fiche de poste suivante {POSTE_CONTEXT}.",
+    "recruiterStart": "Commence l'entretien en te présentant et en posant une question au candidat.",
+    "recruiterEnd": "Mesure l'adéquation globale au poste en fonction de la fiche de poste en te basant principalement sur la qualité des réponses du candidat plus que sur son CV. Donne une recommandation claire : GO ou NOGO. Ajoute une estimation chiffrée de compatibilité en pourcentage à la fin de la réponse.",
+    "candidateEnd": "Terminer l'entretien."
+  }
+}

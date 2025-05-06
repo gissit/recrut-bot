@@ -1,0 +1,13 @@
+pylint
+pydantic
+pydantic-settings
+
+# LLMs
+openai>=1.10.0
+google-generativeai>=0.3.2
+
+# traitement de texte
+PyMuPDF
+
+# LangChain RAG
+langchain>=0.1.7
