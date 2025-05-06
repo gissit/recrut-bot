@@ -6,8 +6,6 @@
 
 Bonjour Sébastien, je suis [Votre Nom], recruteur chez GardenChild.  Votre parcours est assez technique. Qu'est-ce qui vous motive à postuler pour un poste de garde d'enfants ?
 
----
-
 ### 💬 OPENAI (Candidat)
 
 Bonjour ! Je recherche un rôle qui me permet de diversifier mes compétences tout en ayant un impact positif. Travailler avec des enfants est une belle opportunité pour développer des compétences en pédagogie et en communication, tout en m'offrant de la flexibilité dans mon emploi du temps.
@@ -17,8 +15,6 @@ Bonjour ! Je recherche un rôle qui me permet de diversifier mes compétences to
 ### 👤 GEMINI (Recruteur)
 
 Vous mentionnez la flexibilité.  Votre expérience chez Essilor, en freelance, vous a-t-elle habitué à gérer votre temps de manière autonome ?
-
----
 
 ### 💬 OPENAI (Candidat)
 
@@ -30,8 +26,6 @@ Absolument. En freelance chez Essilor, j'ai appris à gérer mon temps efficacem
 
 Gérer des projets techniques complexes et des enfants de 10 ans requiert de l'adaptation.  Voyez-vous des similitudes entre la coordination d'équipes DEV, QA/UAT, IT et R&D chez Essilor et la gestion d'enfants ?
 
----
-
 ### 💬 OPENAI (Candidat)
 
 Oui, il y a des parallèles intéressants. Tout comme coordonner des équipes nécessite de l'écoute, de la communication et de l'adaptabilité, gérer des enfants implique de comprendre leurs besoins et de créer un environnement positif. Les deux demandent patience, créativité et une approche proactive.
@@ -41,8 +35,6 @@ Oui, il y a des parallèles intéressants. Tout comme coordonner des équipes n�
 ### 👤 GEMINI (Recruteur)
 
 Chez Essilor vous avez "Refondu les stratégies de test".  Avez-vous déjà eu à "refondre" des règles du jeu avec des enfants pour les adapter à la situation ?  Racontez-moi une anecdote.
-
----
 
 ### 💬 OPENAI (Candidat)
 
@@ -54,8 +46,6 @@ Oui, cela m'est arrivé. Une fois, j'ai organisé un jeu de société avec des e
 
 Vous avez "piloté des campagnes de tests et l’usage des ASG AWS".  Transposé à la garde d'enfants, comment organiseriez-vous une sortie au parc avec deux enfants de 10 ans en toute sécurité ?
 
----
-
 ### 💬 OPENAI (Candidat)
 
 Pour une sortie au parc, je commencerais par établir un plan : définir l'itinéraire, vérifier la météo et préparer des activités. Je mettrais en place des règles de sécurité, comme rester proche et écouter. Enfin, j’impliquerais les enfants dans le choix des jeux, pour qu'ils se sentent concernés et engagés.
@@ -65,8 +55,6 @@ Pour une sortie au parc, je commencerais par établir un plan : définir l'itin�
 ### 👤 GEMINI (Recruteur)
 
 "Adaptation des modules legacy au cloud" chez Essilor.  Si un enfant refuse catégoriquement de manger ses légumes, comment adapteriez-vous votre approche,  votre "module legacy" du dîner, pour l'amener à les goûter ?
-
----
 
 ### 💬 OPENAI (Candidat)
 
@@ -78,8 +66,6 @@ J'aborderais cela de manière créative. Je pourrais transformer les légumes en
 
 Vous mentionnez la "documentation continue" chez Essilor. Comment appliqueriez-vous ce principe pour suivre le développement et les progrès des enfants dont vous avez la garde ?
 
----
-
 ### 💬 OPENAI (Candidat)
 
 Je tiendrais un carnet de suivi, notant les activités et les progrès de chaque enfant. J'inclurais des notes sur leurs intérêts, leurs réussites et les domaines à améliorer. Cela favoriserait une communication ouverte avec les parents et permettrait d'adapter les activités en fonction de leur évolution.
@@ -89,8 +75,6 @@ Je tiendrais un carnet de suivi, notant les activités et les progrès de chaque
 ### 👤 GEMINI (Recruteur)
 
 Chez Saretec vous avez été "Référent technique Azure & DevOps".  Si un enfant a des difficultés avec ses devoirs, comment le "coacheriez"-vous,  quel serait votre rôle de "référent" pour l'aider à progresser ?
-
----
 
 ### 💬 OPENAI (Candidat)
 
@@ -102,8 +86,6 @@ Je commencerais par évaluer son niveau de compréhension et identifier ses diff
 
 "Définition de la trajectoire move-to-cloud Azure" chez Saretec.  Comment définiriez-vous la "trajectoire" éducative d'un enfant de 10 ans,  en tenant compte de ses aspirations et de ses besoins ?
 
----
-
 ### 💬 OPENAI (Candidat)
 
 Je définirais la trajectoire éducative en discutant avec l'enfant pour comprendre ses intérêts et ses aspirations. J'adapterais les activités en fonction de ses forces et de ses besoins, en intégrant des objectifs clairs. Ce suivi permettrait d'ajuster les méthodes éducatives pour maximiser son engagement et son épanouissement.
@@ -113,8 +95,6 @@ Je définirais la trajectoire éducative en discutant avec l'enfant pour compren
 ### 👤 GEMINI (Recruteur)
 
 "Migration de bots Node.js" chez Saretec.  Si un enfant est passionné par les robots, comment l'accompagneriez-vous dans cette passion,  même sans être un expert en robotique ?
-
----
 
 ### 💬 OPENAI (Candidat)
 
@@ -126,8 +106,6 @@ Je commencerais par explorer ensemble des ressources accessibles, comme des vid�
 
 Chez Carrefour, vous avez optimisé des requêtes SQL.  À la maison, comment optimiseriez-vous le temps du soir pour gérer le dîner, les devoirs, le bain et le coucher des enfants de façon efficace et harmonieuse ?
 
----
-
 ### 💬 OPENAI (Candidat)
 
 Je mettrais en place une routine structurée avec des plages horaires claires pour chaque activité. En préparant le dîner à l’avance et en intégrant les devoirs dans un moment ludique, je m’assurerais que chaque tâche soit réalisée en douceur. Encouragerais les enfants à participer rendrait tout cela collaboratif et amusant.
@@ -137,8 +115,6 @@ Je mettrais en place une routine structurée avec des plages horaires claires po
 ### 👤 GEMINI (Recruteur)
 
 Vous avez "migré du CI/CD TeamCity vers Azure DevOps" chez Carrefour. Si un enfant a du mal à s'adapter à une nouvelle activité, comment l'accompagneriez-vous dans cette "migration", dans ce changement ?
-
----
 
 ### 💬 OPENAI (Candidat)
 
@@ -150,8 +126,6 @@ Je commencerais par expliquer l'activité de manière simple, en soulignant ses 
 
 "Accompagnement et montée en compétence des stagiaires et juniors" chez Carrefour.  Imaginez que vous devez expliquer les règles d'un jeu de société à un enfant qui n'y a jamais joué. Comment vous y prendriez-vous pour transmettre ces nouvelles "compétences" ?
 
----
-
 ### 💬 OPENAI (Candidat)
 
 Je commencerais par expliquer les règles de manière simple et claire, en utilisant des exemples concrets. Puis, je proposerais une démonstration en jouant une ou deux manches ensemble. Cela permettrait à l'enfant de comprendre le jeu tout en s'amusant. Je répondrais à ses questions tout au long du processus pour m’assurer qu’il se sente à l’aise.
@@ -161,8 +135,6 @@ Je commencerais par expliquer les règles de manière simple et claire, en utili
 ### 👤 GEMINI (Recruteur)
 
 Vous avez remplacé un CMS par WordPress chez In System.  Si un enfant a une peur irrationnelle, par exemple des monstres sous son lit, comment "remplaceriez"-vous cette peur par un sentiment de sécurité ?
-
----
 
 ### 💬 OPENAI (Candidat)
 
@@ -174,8 +146,6 @@ Je commencerais par écouter l'enfant pour comprendre sa peur. Ensuite, je crée
 
 "Evolution et optimisation de la plateforme d’achat" chez In System.  Si un enfant a du mal à ranger sa chambre, comment "optimiseriez"-vous cet espace et ce processus pour le rendre plus ludique et efficace ?
 
----
-
 ### 💬 OPENAI (Candidat)
 
 Je transformerais le rangement en jeu en définissant des défis, comme "ranger tous les jouets en 10 minutes". Je créerais des zones désignées pour chaque type de jouet et utiliserais des boîtes colorées. Cela rendrait le processus amusant et aiderait l'enfant à visualiser un espace organisé et agréable.
@@ -185,8 +155,6 @@ Je transformerais le rangement en jeu en définissant des défis, comme "ranger 
 ### 👤 GEMINI (Recruteur)
 
 Chez In System, vous avez conçu une "application de télémaintenance P2P déployée dans 400 salons".  Si un enfant se blesse légèrement, comment "déployeriez-vous" vos compétences de premiers secours, même basiques, pour le soigner ?
-
----
 
 ### 💬 OPENAI (Candidat)
 
@@ -198,8 +166,6 @@ Je garderais mon calme et commencerais par évaluer la blessure. J'expliquerais 
 
 "Prise en charge de la maintenance corrective et évolutive" chez In System.  Comment adapteriez-vous votre approche éducative ("maintenance évolutive") en fonction des besoins changeants d'un enfant ?  Donnez-moi un exemple concret.
 
----
-
 ### 💬 OPENAI (Candidat)
 
 Je resterais attentif aux intérêts de l'enfant et à ses progrès. Par exemple, s'il montre un intérêt croissant pour les sciences, j'intègrerais des projets expérimentaux dans ses activités. Je réévaluerais régulièrement ses besoins et ses motivations pour ajuster les activités éducatives, garantissant ainsi un apprentissage engageant et évolutif.
@@ -209,8 +175,6 @@ Je resterais attentif aux intérêts de l'enfant et à ses progrès. Par exemple
 ### 👤 GEMINI (Recruteur)
 
 Vous avez accompagné des nouveaux développeurs chez In System. Imaginez qu'un enfant timide arrive dans un nouveau groupe d'enfants. Comment l'accompagneriez-vous pour faciliter son intégration ?
-
----
 
 ### 💬 OPENAI (Candidat)
 
@@ -222,8 +186,6 @@ Je commencerais par lui faire des présentations individuelles avec quelques enf
 
 Chez Batiservices, vous avez participé à la création d'un bureau d'études.  Si un enfant souhaite construire une cabane, comment l'aideriez-vous à "créer" son projet, de l'idée à la réalisation ?
 
----
-
 ### 💬 OPENAI (Candidat)
 
 Je commencerais par discuter de ses idées et l'encourager à dessiner un plan. Ensuite, nous définirions ensemble une liste de matériaux nécessaires. Je l'aiderais à décomposer le projet en étapes, comme la collecte des matériaux et la construction. Tout en supervisant, je lui donnerais la liberté de prendre des décisions créatives.
@@ -234,8 +196,6 @@ Je commencerais par discuter de ses idées et l'encourager à dessiner un plan. 
 
 "Élaboration des études techniques et gestion de chantiers" chez Batiservices.  Transposé à la garde d'enfants, comment "géreriez-vous le chantier" d'une après-midi pluvieuse à la maison avec deux enfants pleins d'énergie ?
 
----
-
 ### 💬 OPENAI (Candidat)
 
 Je programmerais une série d'activités variées pour canaliser leur énergie, comme des jeux de société, des ateliers de bricolage ou des sessions de danse. Je structurerais l'après-midi avec des pauses actives, puis des moments calmes pour équilibrer l'énergie. Impliquer les enfants dans la planification rendrait la journée encore plus engageante.
@@ -245,8 +205,6 @@ Je programmerais une série d'activités variées pour canaliser leur énergie, 
 ### 👤 GEMINI (Recruteur)
 
 "Mise à niveau du système de gestion commerciale" chez Batiservices.  Si un enfant a du mal à gérer son argent de poche, comment l'aideriez-vous à "mettre à niveau" ses compétences en gestion financière ?
-
----
 
 ### 💬 OPENAI (Candidat)
 
