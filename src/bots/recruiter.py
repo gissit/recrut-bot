@@ -1,5 +1,6 @@
 import google.generativeai as genai
 
+
 class Recruiter():
     __gemini_chat_session: genai.ChatSession = None
     __gemini_model: str = ""
@@ -22,7 +23,7 @@ class Recruiter():
         with open(prompt_file_path, encoding="utf-8") as f:
             system = f.read()
 
-        self.__history =[
+        self.__history = [
             {"role": "user", "parts": [system]},
             {"role": "user", "parts": initial_context}
         ]

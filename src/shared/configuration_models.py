@@ -5,6 +5,7 @@ Manages configuration models
 from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings
 
+
 class IaConfiguration(BaseSettings):
     gemini_model: str = Field(alias="geminiModel", default="")
     openai_model: str = Field(alias="openAiModel", default="")
@@ -18,6 +19,7 @@ class IaConfiguration(BaseSettings):
         extra = "ignore"
         env_file = ".env"
 
+
 class PersonaConfiguration(BaseModel):
     recruiter: str = Field(alias="recruiter", default="")
     recruiter_context_file: str = Field(alias="recruiterContextFile", default="")
@@ -30,6 +32,7 @@ class PersonaConfiguration(BaseModel):
         populate_by_name = False
         extra = "forbid"
 
+
 class PromptConfiguration(BaseModel):
     initial: str = Field(alias="initial", default="")
     recruiter_start: str = Field(alias="recruiterStart", default="")
@@ -39,6 +42,7 @@ class PromptConfiguration(BaseModel):
     class Config:
         populate_by_name = False
         extra = "forbid"
+
 
 class AppConfiguration(BaseModel):
     ia: IaConfiguration

@@ -1,9 +1,10 @@
 from openai import OpenAI
 
+
 class Candidate():
     __openai_client: OpenAI = None
-    __openai_model : str = ""
-    __openai_api_key : str = ""
+    __openai_model: str = ""
+    __openai_api_key: str = ""
 
     __temperature: int = 0.0
     __persona: str = ""

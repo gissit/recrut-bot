@@ -11,8 +11,8 @@ from bots import FileContext, Recruiter, Candidate
 
 
 class Main():
-    __recruiter : Recruiter
-    __candidate : Candidate
+    __recruiter: Recruiter
+    __candidate: Candidate
 
     def __init__(self):
 
@@ -69,6 +69,7 @@ class Main():
         candidate_response = await self.__candidate.ask()
 
         recruiter_response = await self.__recruiter.ask(Configuration.prompt.recruiter_end)
+
 
 async def main():
     parser = argparse.ArgumentParser(description="Bullshit Bob")

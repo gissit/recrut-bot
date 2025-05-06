@@ -16,7 +16,7 @@ Miscellaneous commands
 
 ```bash
 rd .venv -Recurse -Force
-pylint src/
+flake8 . --exclude=.venv --max-line-length=120
 ```
 
 Create `.env` file at the root of the repository
