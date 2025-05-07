@@ -8,7 +8,6 @@ class Recruiter():
 
     __temperature: int = 0.0
     __persona: str = ""
-    __history: list = []
 
     def __init__(
         self,
@@ -23,7 +22,7 @@ class Recruiter():
         with open(prompt_file_path, encoding="utf-8") as f:
             system = f.read()
 
-        self.__history = [
+        history = [
             {"role": "user", "parts": [system]},
             {"role": "user", "parts": initial_context}
         ]
@@ -31,7 +30,7 @@ class Recruiter():
         genai.configure(api_key=self.__gemini_api_key)
         gmodel = genai.GenerativeModel(self.__gemini_model)
 
-        self.__gemini_chat_session = gmodel.start_chat(history=self.__history)
+        self.__gemini_chat_session = gmodel.start_chat(history=history)
 
     async def ask(self, message):
         response = self.__gemini_chat_session.send_message(
@@ -42,6 +41,3 @@ class Recruiter():
         print(f"\n{self.__persona}{response}")
 
         return response
-
-    def append_message(self, message):
-        self.__history.append({"role": "user", "parts": [message]})

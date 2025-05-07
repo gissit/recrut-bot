@@ -58,8 +58,6 @@ class Main():
         for _ in range(max_turns):
             candidate_response = await self.__candidate.ask()
 
-            self.__recruiter.append_message(candidate_response)
-
             recruiter_response = await self.__recruiter.ask(candidate_response)
 
             self.__candidate.append_message("user", recruiter_response)
