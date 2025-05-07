@@ -71,7 +71,7 @@ class Main():
 
 
 async def main():
-    parser = argparse.ArgumentParser(description="Bullshit Bob")
+    parser = argparse.ArgumentParser(description="RecrutBot")
     parser.add_argument("--max-turns", type=int, default=4, help="Nombre tour max")
 
     args = parser.parse_args()
