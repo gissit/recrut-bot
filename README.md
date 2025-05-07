@@ -2,6 +2,7 @@
 
 When a Gemini bot tries to recrut an OpenAI bot.
 
+
 ## Local setup
 
 Install virtual environment and dependencies
@@ -34,9 +35,8 @@ python src/main.py --max-turns 5      # default value is 4
 ## AI Differences: Gemini vs OpenAI
 
 - **Gemini Chat Session** automatically tracks conversation history.
-- **OpenAI Chat Completion**, by contrast, requires that **the full conversation history be included with every request**.
-
-OpenAI is currently developing the **Assistants API v2**, which supports persistent threads and conversation context — but it's still in **beta**.
+- **OpenAI Assistant API**, also tracks conversation history but requires to create **an assistant**.
+- **OpenAI Completion API**, by contrast, requires that **the full conversation history be included with every request**.
 
 
 ## Workflow Overview
@@ -61,8 +61,31 @@ OpenAI is currently developing the **Assistants API v2**, which supports persist
    - At the end, it gives a **score** and a **GO/NOGO decision**.
 
 
-## Goal of the POC
+## Settings file (`src/config.json`)
 
-Try to **recruit an IT engineer for a babysitting job** — and have fun experimenting with the results!
+| Section | Setting | Description
+|-|-|-
+| `ia`      | `geminiModel`           | [Gemini Model](https://ai.google.dev/gemini-api/docs/models)
+| `ia`      | `openAiModel`           | [OpenAI Model](https://platform.openai.com/docs/models)
+| `ia`      | `useOpenAiAssistantApi` | Boolean which indicates to use OpenAI Assistant API instead of Completion API
+| `ia`      | `temperature`           | Number which indicates how creative the models will be (0.0 = less creative, 1.0 = more creative)
+| `persona` | `recruiter`             | String which indicates the recruiter answers
+| `persona` | `recruiterContextFile`  | String which indicates the path to the job description
+| `persona` | `recruiterPromptFile`   | String which indicates the path to the prompt of the recruiter
+| `persona` | `candidate`             | String which indicates the candidate answers
+| `persona` | `candidateContextFile`  | String which indicates the path to the candidate's resume
+| `persona` | `candidatePromptFile`   | String which indicates the path to the prompt of the candidate
+| `prompt`  | `initial`               | String used to create initial context in which job description and candidate's resume are included
+| `prompt`  | `recruiterStart`        | String used to start the interview
+| `prompt`  | `recruiterEnd`          | String used to end the interview on the recruiter side and give a recommendation
+| `prompt`  | `candidateEnd`          | String used to end the interview on the candidate side
 
-Sample of a [GO](./chats/babysitter_fr_go.md) and a [NOGO](./chats/babysitter_fr_nogo.md), both are in french language.
+
+## Sample interviews
+
+Tries to **recruit an IT engineer for a babysitting job** — and have fun experimenting with the results!
+
+| Langage | GO | NOGO
+|-|-|-
+| English | [`chats/babysitter_GO_EN.md`](./chats/babysitter_GO_EN.md) | [`chats/babysitter_NOGO_EN.md`](./chats/babysitter_NOGO_EN.md)
+| French  | [`chats/babysitter_GO_FR.md`](./chats/babysitter_GO_FR.md) | [`chats/babysitter_NOGO_FR.md`](./chats/babysitter_NOGO_FR.md)

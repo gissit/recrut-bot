@@ -11,7 +11,6 @@ class Main():
     __candidate: Candidate | CandidateAssistant
 
     def __init__(self):
-
         file_contexts = {
             "POSTE_CONTEXT": FileContext(
                 os.path.join(
