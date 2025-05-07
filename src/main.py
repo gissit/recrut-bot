@@ -7,12 +7,12 @@ import os
 import asyncio
 
 from shared import FileContext, Configuration, WORKING_DIRECTORY
-from bots import Recruiter, Candidate
+from bots import Recruiter, Candidate, CandidateAssistant
 
 
 class Main():
     __recruiter: Recruiter
-    __candidate: Candidate
+    __candidate: Candidate | CandidateAssistant
 
     def __init__(self):
 
@@ -41,14 +41,24 @@ class Main():
             initial_context
         )
 
-        self.__candidate = Candidate(
-            Configuration.ia.openai_model,
-            Configuration.ia.openai_api_key,
-            Configuration.ia.temperature,
-            Configuration.persona.candidate,
-            os.path.join(WORKING_DIRECTORY, Configuration.persona.candidate_prompt_file),
-            initial_context
-        )
+        if Configuration.ia.use_openai_assistant_api:
+            self.__candidate = CandidateAssistant(
+                Configuration.ia.openai_model,
+                Configuration.ia.openai_api_key,
+                Configuration.ia.temperature,
+                Configuration.persona.candidate,
+                os.path.join(WORKING_DIRECTORY, Configuration.persona.candidate_prompt_file),
+                initial_context
+            )
+        else:
+            self.__candidate = Candidate(
+                Configuration.ia.openai_model,
+                Configuration.ia.openai_api_key,
+                Configuration.ia.temperature,
+                Configuration.persona.candidate,
+                os.path.join(WORKING_DIRECTORY, Configuration.persona.candidate_prompt_file),
+                initial_context
+            )
 
     async def start_interview(self, max_turns: int):
         recruiter_response = await self.__recruiter.answer_to(Configuration.prompt.recruiter_start)
@@ -68,6 +78,8 @@ class Main():
 
         recruiter_response = await self.__recruiter.answer_to(Configuration.prompt.recruiter_end)
         print(recruiter_response)
+
+        self.__candidate.clean_resources()
 
 
 async def main():
