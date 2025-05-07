@@ -6,8 +6,8 @@ import argparse
 import os
 import asyncio
 
-from shared import Configuration, WORKING_DIRECTORY
-from bots import FileContext, Recruiter, Candidate
+from shared import FileContext, Configuration, WORKING_DIRECTORY
+from bots import Recruiter, Candidate
 
 
 class Main():
@@ -50,23 +50,24 @@ class Main():
             initial_context
         )
 
-    async def duel(self, max_turns: int):
-        recruiter_response = await self.__recruiter.ask(Configuration.prompt.recruiter_start)
-
-        self.__candidate.append_message("user", recruiter_response)
+    async def start_interview(self, max_turns: int):
+        recruiter_response = await self.__recruiter.answer_to(Configuration.prompt.recruiter_start)
+        print(recruiter_response)
 
         for _ in range(max_turns):
-            candidate_response = await self.__candidate.ask()
+            candidate_response = await self.__candidate.answer_to(recruiter_response)
+            print(candidate_response)
 
-            recruiter_response = await self.__recruiter.ask(candidate_response)
+            recruiter_response = await self.__recruiter.answer_to(candidate_response)
+            print(recruiter_response)
 
-            self.__candidate.append_message("user", recruiter_response)
+        recruiter_response = f"{recruiter_response}{Configuration.prompt.candidate_end}"
 
-        self.__candidate.append_message("user", Configuration.prompt.candidate_end)
+        candidate_response = await self.__candidate.answer_to(recruiter_response)
+        print(candidate_response)
 
-        candidate_response = await self.__candidate.ask()
-
-        recruiter_response = await self.__recruiter.ask(Configuration.prompt.recruiter_end)
+        recruiter_response = await self.__recruiter.answer_to(Configuration.prompt.recruiter_end)
+        print(recruiter_response)
 
 
 async def main():
@@ -75,7 +76,7 @@ async def main():
 
     args = parser.parse_args()
 
-    await Main().duel(args.max_turns)
+    await Main().start_interview(args.max_turns)
 
 
 if __name__ == "__main__":

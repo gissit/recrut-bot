@@ -4,7 +4,6 @@ from openai import OpenAI
 class Candidate():
     __openai_client: OpenAI = None
     __openai_model: str = ""
-    __openai_api_key: str = ""
 
     __temperature: int = 0.0
     __persona: str = ""
@@ -16,11 +15,10 @@ class Candidate():
         persona: str, prompt_file_path: str, initial_context: str
     ):
         self.__openai_model = openai_model
-        self.__openai_api_key = openai_api_key
         self.__temperature = temperature
         self.__persona = persona
 
-        self.__openai_client = OpenAI(api_key=self.__openai_api_key)
+        self.__openai_client = OpenAI(api_key=openai_api_key)
 
         with open(prompt_file_path, encoding="utf-8") as f:
             system = f.read()
@@ -30,16 +28,13 @@ class Candidate():
             {"role": "user", "content": initial_context}
         ]
 
-    async def ask(self):
+    async def answer_to(self, message: str):
+        self.__history.append({"role": "user", "content": message})
+
         response = self.__openai_client.chat.completions.create(
             model=self.__openai_model, temperature=self.__temperature, messages=self.__history
         ).choices[0].message.content.strip()
 
-        self.append_message("assistant", response)
+        self.__history.append({"role": "assistant", "content": response})
 
-        print(f"\n{self.__persona}{response}")
-
-        return response
-
-    def append_message(self, role: str, message: str):
-        self.__history.append({"role": role, "content": message})
+        return f"\n{self.__persona}{response}"
