@@ -38,3 +38,6 @@ class Candidate():
         self.__history.append({"role": "assistant", "content": response})
 
         return f"\n{self.__persona}{response}"
+
+    def clean_resources(self):
+        pass
