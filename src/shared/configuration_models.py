@@ -9,6 +9,7 @@ from pydantic_settings import BaseSettings
 class IaConfiguration(BaseSettings):
     gemini_model: str = Field(alias="geminiModel", default="")
     openai_model: str = Field(alias="openAiModel", default="")
+    use_openai_assistant_api: bool = Field(alias="useOpenAiAssistantApi", default=False)
     temperature: float = Field(alias="temperature", default=1.0)
 
     openai_api_key: str = Field(alias="OPENAI_API_KEY", default="")
