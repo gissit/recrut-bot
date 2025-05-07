@@ -69,10 +69,10 @@ python src/main.py --max-turns 5      # default value is 4
 | `ia`      | `openAiModel`           | [OpenAI Model](https://platform.openai.com/docs/models)
 | `ia`      | `useOpenAiAssistantApi` | Boolean which indicates to use OpenAI Assistant API instead of Completion API
 | `ia`      | `temperature`           | Number which indicates how creative the models will be (0.0 = less creative, 1.0 = more creative)
-| `persona` | `recruiter`             | String which indicates the recruiter answers
+| `persona` | `recruiter`             | String which indicates the recruiter answers in the discussion
 | `persona` | `recruiterContextFile`  | String which indicates the path to the job description
 | `persona` | `recruiterPromptFile`   | String which indicates the path to the prompt of the recruiter
-| `persona` | `candidate`             | String which indicates the candidate answers
+| `persona` | `candidate`             | String which indicates the candidate answers in the discussion
 | `persona` | `candidateContextFile`  | String which indicates the path to the candidate's resume
 | `persona` | `candidatePromptFile`   | String which indicates the path to the prompt of the candidate
 | `prompt`  | `initial`               | String used to create initial context in which job description and candidate's resume are included
