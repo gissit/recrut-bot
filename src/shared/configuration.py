@@ -1,10 +1,3 @@
-"""
-Manages configuration
-
-Configuration is explicitly declared as classes with near-to-empty attributes
-in order to ease development with auto-completion discovery.
-"""
-
 import json
 import os
 

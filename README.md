@@ -38,17 +38,13 @@ python src/main.py --max-turns 5      # default value is 4
 
 OpenAI is currently developing the **Assistants API v2**, which supports persistent threads and conversation context — but it's still in **beta**.
 
-Additionally:
-- A Gemini session is initialized with a **predefined history** and **requires a user message to begin**.
-- OpenAI starts immediately using the **provided `messages` array** with no need to "start" the conversation explicitly.
-
 
 ## Workflow Overview
 
 1. **Initialize Context**  
    We start by preparing a simple initial prompt from `config.json > prompt.initial`, which includes:
-   - the candidate's **resume**
-   - the **job description**
+   - the candidate's **resume** file `docs/candidates_resume.pdf`
+   - the **job description** file `docs/job_description.pdf`
 
 2. **Pass Initial Context to Both Bots**  
    This prompt is sent to both Gemini and OpenAI.

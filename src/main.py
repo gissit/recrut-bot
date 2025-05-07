@@ -1,7 +1,3 @@
-"""
-Holds IA contexts and RAG.
-"""
-
 import argparse
 import os
 import asyncio
@@ -84,7 +80,7 @@ class Main():
 
 async def main():
     parser = argparse.ArgumentParser(description="RecrutBot")
-    parser.add_argument("--max-turns", type=int, default=4, help="Nombre tour max")
+    parser.add_argument("--max-turns", type=int, default=4, help="Maximum number of turns in the discussion")
 
     args = parser.parse_args()
 
