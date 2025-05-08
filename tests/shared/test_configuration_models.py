@@ -1,4 +1,7 @@
 import pytest
+import os
+
+from unittest.mock import patch
 from pydantic import ValidationError
 from src.shared.configuration_models import IaConfiguration
 
@@ -13,11 +16,12 @@ def test_ia_configuration_missing_required_value():
         IaConfiguration(temperature="not-a-float")
 
 
-def test_ia_configuration_from_env(monkeypatch):
-    monkeypatch.setenv("OPENAI_API_KEY", "env-openai")
-    monkeypatch.setenv("GEMINI_API_KEY", "env-gemini")
-    monkeypatch.setenv("MISTRAL_API_KEY", "env-mistral")
-
+@patch.dict(os.environ, {
+    "OPENAI_API_KEY": "env-openai",
+    "GEMINI_API_KEY": "env-gemini",
+    "MISTRAL_API_KEY": "env-mistral"
+})
+def test_ia_configuration_from_env():
     cfg = IaConfiguration()
     assert cfg.openai_api_key == "env-openai"
     assert cfg.gemini_api_key == "env-gemini"
