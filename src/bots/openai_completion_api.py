@@ -33,11 +33,12 @@ class OpenAICompletionAPI:
 
         response = self.__openai_client.chat.completions.create(
             model=self.__openai_model, temperature=self.__temperature, messages=self.__history
-        ).choices[0].message.content.strip()
+        )
+        answer = response.choices[0].message.content.strip()
 
-        self.__history.append({"role": "assistant", "content": response})
+        self.__history.append({"role": "assistant", "content": answer})
 
-        return f"\n{self.__persona}{response}"
+        return f"\n{self.__persona}{answer}"
 
     def clean_resources(self):
         pass

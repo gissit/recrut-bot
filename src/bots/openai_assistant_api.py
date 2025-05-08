@@ -65,9 +65,9 @@ class OpenAIAssistantAPI:
         if not assistant_messages:
             return f"\n{self.__persona}[No assistant response]"
 
-        latest_response = assistant_messages[0].content[0].text.value.strip()
+        answer = assistant_messages[0].content[0].text.value.strip()
 
-        return f"\n{self.__persona}{latest_response}"
+        return f"\n{self.__persona}{answer}"
 
     def clean_resources(self):
         self.__openai_client.beta.assistants.delete(self.__assistant_id)

@@ -2,7 +2,7 @@ import fitz
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 
-class FileContext():
+class FileContext:
     __path: str = ""
 
     def __init__(self, path: str = ""):

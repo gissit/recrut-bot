@@ -32,9 +32,10 @@ class Gemini:
         response = self.__gemini_chat_session.send_message(
             message,
             generation_config={"temperature": self.__temperature}
-        ).text.strip()
+        )
+        answer = response.text.strip()
 
-        return f"\n{self.__persona}{response}"
+        return f"\n{self.__persona}{answer}"
 
     def clean_resources(self):
         pass
