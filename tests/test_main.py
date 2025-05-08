@@ -1,10 +1,39 @@
-from unittest.mock import patch
+import os
+
+from unittest.mock import patch, MagicMock
 from src import Main
 from src.shared.file_context import FileContext
+from src.bots.gemini import Gemini
+from src.bots.mistral_completion import MistralCompletion
+from src.bots.openai_assistant_api import OpenAIAssistantAPI
+from src.bots.openai_completion_api import OpenAICompletionAPI
 
 
+@patch.dict(os.environ, {
+    "OPENAI_API_KEY": "fake",
+    "GEMINI_API_KEY": "fake",
+    "MISTRAL_API_KEY": "fake"
+})
 @patch("src.main.FileContext")
-def test_main_initialization(mock_file_context: FileContext):
+@patch("src.main.Gemini")
+@patch("src.main.MistralCompletion")
+@patch("src.main.OpenAICompletionAPI")
+@patch("src.main.OpenAIAssistantAPI")
+def test_main_initialization(
+    mock_openai_assistant: OpenAIAssistantAPI,
+    mock_openai_completion: OpenAICompletionAPI,
+    mock_mistral: MistralCompletion,
+    mock_gemini: Gemini,
+    mock_file_context: FileContext
+):
+    mock_bot = MagicMock()
+    mock_bot.set_persona.return_value = mock_bot
+
+    mock_openai_assistant.return_value = mock_bot
+    mock_openai_completion.return_value = mock_bot
+    mock_mistral.return_value = mock_bot
+    mock_gemini.return_value = mock_bot
+
     mock_file_context.return_value.get_context.side_effect = [
         "Simulated recruiter context",
         "Simulated candidate context"
