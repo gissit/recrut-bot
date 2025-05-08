@@ -1,6 +1,6 @@
 # RecrutBot
 
-When a Gemini bot tries to recrut an OpenAI bot.
+RecrutBot is a playful experimental project designed to explore and compare how different AI APIs (Gemini, OpenAI, Mistral) handle multi-turn conversation, persona prompting, and context management.
 
 
 ## Local setup
@@ -24,6 +24,7 @@ Create `.env` file at the root of the repository
 ```dotenv
 OPENAI_API_KEY=sk-...
 GEMINI_API_KEY=AIz...
+MISTRAL_API_KEY=AIz...
 ```
 
 Launch RecrutBot
@@ -34,9 +35,9 @@ python src/main.py --max-turns 5      # default value is 4
 
 ## AI Differences: Gemini vs OpenAI
 
-- **Gemini Chat Session** automatically tracks conversation history.
+- **Gemini Chat Session API** automatically tracks conversation history.
 - **OpenAI Assistant API**, also tracks conversation history but requires to create **an assistant**.
-- **OpenAI Completion API**, by contrast, requires that **the full conversation history be included with every request**.
+- **OpenAI Completion API** and **Mistral Chat Completion API**, by contrast, requires that **the full conversation history be included with every request**.
 
 
 ## Workflow Overview
@@ -49,7 +50,7 @@ python src/main.py --max-turns 5      # default value is 4
 2. **Pass Initial Context to Both Bots**  
    This prompt is sent to both Gemini and OpenAI.
 
-   > ⚠️ **Note**: Including full files in the prompt consumes a lot of tokens — but this is just a POC.
+   > ⚠️ **Note**: Including full files in the prompt consumes a large number of tokens, do not use too large files — but this is just a POC.
 
 3. **Inject Role-Specific Prompts**:
    - `prompts/recruiter.txt` is passed to **Gemini** as a **user message** (⚠️ Gemini does not support `system` role).
