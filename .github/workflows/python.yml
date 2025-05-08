@@ -35,7 +35,7 @@ jobs:
 
     - name: Run tests with coverage
       run: |
-        pip install pytest pytest-cov
+        source .venv/bin/activate
         pytest --cov=src tests/
 
     - name: Execute main.py for basic test
