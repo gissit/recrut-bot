@@ -5,7 +5,11 @@ RecrutBot is a playful experimental project designed to explore and compare how 
 
 ## Local setup
 
-Install virtual environment and dependencies
+Install [Visual Studio Code](https://code.visualstudio.com/) or another IDE.
+
+Install [Python](https://www.python.org/downloads/) latest version, everything by default.
+
+Install virtual environment and dependencies.
 
 ```bash
 python -m venv .venv
