@@ -1,7 +1,7 @@
 import google.generativeai as genai
 
 
-class Recruiter():
+class Gemini:
     __gemini_chat_session: genai.ChatSession = None
 
     __temperature: int = 0.0
@@ -35,3 +35,6 @@ class Recruiter():
         ).text.strip()
 
         return f"\n{self.__persona}{response}"
+
+    def clean_resources(self):
+        pass

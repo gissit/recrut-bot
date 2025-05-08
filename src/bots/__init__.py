@@ -1,9 +1,9 @@
-from .recruiter import Recruiter
-from .candidate import Candidate
-from .candidate_assistant import CandidateAssistant
+from .gemini import Gemini
+from .openai_completion_api import OpenAICompletionAPI
+from .openai_assistant_api import OpenAIAssistantAPI
 
 __all__ = (
-    "Recruiter",
-    "Candidate",
-    "CandidateAssistant"
+    "Gemini",
+    "OpenAICompletionAPI",
+    "OpenAIAssistantAPI"
 )

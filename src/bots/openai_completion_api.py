@@ -1,7 +1,7 @@
 from openai import OpenAI
 
 
-class Candidate():
+class OpenAICompletionAPI:
     __openai_client: OpenAI = None
     __openai_model: str = ""
 

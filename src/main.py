@@ -3,12 +3,12 @@ import os
 import asyncio
 
 from shared import FileContext, Configuration, WORKING_DIRECTORY
-from bots import Recruiter, Candidate, CandidateAssistant
+from bots import Gemini, OpenAICompletionAPI, OpenAIAssistantAPI
 
 
-class Main():
-    __recruiter: Recruiter
-    __candidate: Candidate | CandidateAssistant
+class Main:
+    __recruiter: Gemini
+    __candidate: OpenAICompletionAPI | OpenAIAssistantAPI
 
     def __init__(self):
         file_contexts = {
@@ -27,7 +27,7 @@ class Main():
         }
         initial_context = Configuration.prompt.initial.format_map(file_contexts)
 
-        self.__recruiter = Recruiter(
+        self.__recruiter = Gemini(
             Configuration.ia.gemini_model,
             Configuration.ia.gemini_api_key,
             Configuration.ia.temperature,
@@ -37,7 +37,7 @@ class Main():
         )
 
         if Configuration.ia.use_openai_assistant_api:
-            self.__candidate = CandidateAssistant(
+            self.__candidate = OpenAIAssistantAPI(
                 Configuration.ia.openai_model,
                 Configuration.ia.openai_api_key,
                 Configuration.ia.temperature,
@@ -46,7 +46,7 @@ class Main():
                 initial_context
             )
         else:
-            self.__candidate = Candidate(
+            self.__candidate = OpenAICompletionAPI(
                 Configuration.ia.openai_model,
                 Configuration.ia.openai_api_key,
                 Configuration.ia.temperature,

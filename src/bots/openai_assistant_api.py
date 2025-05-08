@@ -3,7 +3,7 @@ import asyncio
 from openai import OpenAI
 
 
-class CandidateAssistant():
+class OpenAIAssistantAPI:
     __openai_client: OpenAI = None
     __assistant_id: str = ""
     __thread_id: str = ""
