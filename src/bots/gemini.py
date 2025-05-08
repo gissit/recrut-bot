@@ -1,30 +1,32 @@
 import google.generativeai as genai
 
+from .configuration import BotModelConfiguration, BotPersonaConfiguration
+
 
 class Gemini:
-    __gemini_chat_session: genai.ChatSession = None
+    __gemini_chat_session: genai.ChatSession | None = None
 
     __temperature: int = 0.0
-    __persona: str = ""
+    __persona: str | None = None
 
     def __init__(
         self,
-        gemini_model: str, gemini_api_key: str, temperature: int,
-        persona: str, prompt_file_path: str, initial_context: str
+        model_configuration: BotModelConfiguration,
+        persona_configuration: BotPersonaConfiguration
     ):
-        self.__temperature = temperature
-        self.__persona = persona
+        self.__temperature = model_configuration.temperature
+        self.__persona = persona_configuration.persona
 
-        with open(prompt_file_path, encoding="utf-8") as f:
+        with open(persona_configuration.prompt_file_path, encoding="utf-8") as f:
             system = f.read()
 
         history = [
             {"role": "user", "parts": [system]},
-            {"role": "user", "parts": initial_context}
+            {"role": "user", "parts": [model_configuration.initial_context]}
         ]
 
-        genai.configure(api_key=gemini_api_key)
-        gmodel = genai.GenerativeModel(gemini_model)
+        genai.configure(api_key=model_configuration.api_key)
+        gmodel = genai.GenerativeModel(model_name=model_configuration.model)
 
         self.__gemini_chat_session = gmodel.start_chat(history=history)
 
@@ -36,6 +38,3 @@ class Gemini:
         answer = response.text.strip()
 
         return f"\n{self.__persona}{answer}"
-
-    def clean_resources(self):
-        pass

@@ -1,35 +1,33 @@
 from mistralai import Mistral
 
+from .configuration import BotModelConfiguration, BotPersonaConfiguration
+
 
 class MistralCompletion:
-    __mistral_client: Mistral = None
-    __mistral_model: str = ""
+    __mistral_client: Mistral | None = None
+    __mistral_model: str | None = None
 
     __temperature: float = 0.0
-    __persona: str = ""
+    __persona: str | None = None
     __history: list = []
 
     def __init__(
         self,
-        mistral_model: str,
-        mistral_api_key: str,
-        temperature: float,
-        persona: str,
-        prompt_file_path: str,
-        initial_context: str
+        model_configuration: BotModelConfiguration,
+        persona_configuration: BotPersonaConfiguration
     ):
-        self.__mistral_model = mistral_model
-        self.__temperature = temperature
-        self.__persona = persona
+        self.__mistral_model = model_configuration.model
+        self.__temperature = model_configuration.temperature
+        self.__persona = persona_configuration.persona
 
-        self.__mistral_client = Mistral(api_key=mistral_api_key)
+        self.__mistral_client = Mistral(api_key=model_configuration.api_key)
 
-        with open(prompt_file_path, encoding="utf-8") as f:
+        with open(persona_configuration.prompt_file_path, encoding="utf-8") as f:
             system = f.read()
 
         self.__history = [
             {"role": "system", "content": system},
-            {"role": "user", "content": initial_context}
+            {"role": "user", "content": model_configuration.initial_context},
         ]
 
     async def answer_to(self, message: str):
@@ -45,6 +43,3 @@ class MistralCompletion:
         self.__history.append(response.choices[0].message)
 
         return f"\n{self.__persona}{answer}"
-
-    def clean_resources(self):
-        pass

@@ -1,41 +1,51 @@
 import asyncio
+import signal
+import atexit
 
 from openai import OpenAI
+from .configuration import BotModelConfiguration, BotPersonaConfiguration
 
 
 class OpenAIAssistantAPI:
-    __openai_client: OpenAI = None
-    __assistant_id: str = ""
-    __thread_id: str = ""
+    __openai_client: OpenAI | None = None
+    __assistant_id: str | None = None
+    __thread_id: str | None = None
 
-    __persona: str = ""
+    __persona: str | None = None
 
     def __init__(
         self,
-        openai_model: str, openai_api_key: str, temperature: int,
-        persona: str, prompt_file_path: str, initial_context: str
+        model_configuration: BotModelConfiguration,
+        persona_configuration: BotPersonaConfiguration
     ):
-        self.__persona = persona
+        atexit.register(self._delete_assistant)
+        signal.signal(signal.SIGINT, self._delete_assistant)
+        signal.signal(signal.SIGTERM, self._delete_assistant)
 
-        self.__openai_client = OpenAI(api_key=openai_api_key)
+        self.__persona = persona_configuration.persona
 
-        with open(prompt_file_path, encoding="utf-8") as f:
+        self.__openai_client = OpenAI(api_key=model_configuration.api_key)
+
+        with open(persona_configuration.prompt_file_path, encoding="utf-8") as f:
             system = f.read()
 
         assistant = self.__openai_client.beta.assistants.create(
             name="RecrutBot",
             instructions=system,
-            model=openai_model,
-            temperature=temperature
+            model=model_configuration.model,
+            temperature=model_configuration.temperature,
         )
         self.__assistant_id = assistant.id
 
         thread = self.__openai_client.beta.threads.create(
             messages=[
-                {"role": "user", "content": initial_context}
+                {"role": "user", "content": model_configuration.initial_context}
             ]
         )
         self.__thread_id = thread.id
+
+    def _delete_assistant(self):
+        self.__openai_client.beta.assistants.delete(self.__assistant_id)
 
     async def answer_to(self, message: str):
         self.__openai_client.beta.threads.messages.create(
@@ -68,6 +78,3 @@ class OpenAIAssistantAPI:
         answer = assistant_messages[0].content[0].text.value.strip()
 
         return f"\n{self.__persona}{answer}"
-
-    def clean_resources(self):
-        self.__openai_client.beta.assistants.delete(self.__assistant_id)
