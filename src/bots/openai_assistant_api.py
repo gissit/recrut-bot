@@ -8,6 +8,10 @@ from .configuration import BotModelConfiguration, BotPersonaConfiguration
 
 class OpenAIAssistantAPI:
     __openai_client: OpenAI | None = None
+    __openai_model: str | None = None
+    __temperature: int = 0.0
+    __initial_context: str | None = None
+
     __assistant_id: str | None = None
     __thread_id: str | None = None
 
@@ -15,16 +19,23 @@ class OpenAIAssistantAPI:
 
     def __init__(
         self,
-        model_configuration: BotModelConfiguration,
-        persona_configuration: BotPersonaConfiguration
+        model_configuration: BotModelConfiguration
     ):
         atexit.register(self._delete_assistant)
         signal.signal(signal.SIGINT, self._delete_assistant)
         signal.signal(signal.SIGTERM, self._delete_assistant)
 
-        self.__persona = persona_configuration.persona
-
         self.__openai_client = OpenAI(api_key=model_configuration.api_key)
+        self.__openai_model = model_configuration.model
+        self.__temperature = model_configuration.temperature
+        self.__initial_context = model_configuration.initial_context
+
+    def _delete_assistant(self):
+        if self.__assistant_id is not None:
+            self.__openai_client.beta.assistants.delete(self.__assistant_id)
+
+    def set_persona(self, persona_configuration: BotPersonaConfiguration):
+        self.__persona = persona_configuration.persona
 
         with open(persona_configuration.prompt_file_path, encoding="utf-8") as f:
             system = f.read()
@@ -32,20 +43,19 @@ class OpenAIAssistantAPI:
         assistant = self.__openai_client.beta.assistants.create(
             name="RecrutBot",
             instructions=system,
-            model=model_configuration.model,
-            temperature=model_configuration.temperature,
+            model=self.__openai_model,
+            temperature=self.__temperature,
         )
         self.__assistant_id = assistant.id
 
         thread = self.__openai_client.beta.threads.create(
             messages=[
-                {"role": "user", "content": model_configuration.initial_context}
+                {"role": "user", "content": self.__initial_context}
             ]
         )
         self.__thread_id = thread.id
 
-    def _delete_assistant(self):
-        self.__openai_client.beta.assistants.delete(self.__assistant_id)
+        return self
 
     async def answer_to(self, message: str):
         self.__openai_client.beta.threads.messages.create(
