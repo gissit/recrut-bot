@@ -37,4 +37,4 @@ class Gemini:
         )
         answer = response.text.strip()
 
-        return f"\n{self.__persona}{answer}"
+        return f"\nGEMINI {self.__persona}{answer}"

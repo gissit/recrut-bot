@@ -42,4 +42,4 @@ class MistralCompletion:
 
         self.__history.append(response.choices[0].message)
 
-        return f"\n{self.__persona}{answer}"
+        return f"\nMISTRAL {self.__persona}{answer}"

@@ -77,4 +77,4 @@ class OpenAIAssistantAPI:
 
         answer = assistant_messages[0].content[0].text.value.strip()
 
-        return f"\n{self.__persona}{answer}"
+        return f"\nOPENAI ASSISTANT {self.__persona}{answer}"
