@@ -3,12 +3,14 @@ import os
 import asyncio
 
 from shared import FileContext, Configuration, WORKING_DIRECTORY
-from bots import Gemini, OpenAICompletionAPI, OpenAIAssistantAPI
+from bots import Gemini, OpenAICompletionAPI, OpenAIAssistantAPI, MistralCompletion
+from bots import BotModelConfiguration, BotPersonaConfiguration
 
 
 class Main:
-    __recruiter: Gemini
-    __candidate: OpenAICompletionAPI | OpenAIAssistantAPI
+    __bots: list = []
+    __recruiter: Gemini | OpenAICompletionAPI | OpenAIAssistantAPI | MistralCompletion
+    __candidate: Gemini | OpenAICompletionAPI | OpenAIAssistantAPI | MistralCompletion
 
     def __init__(self):
         file_contexts = {
@@ -27,33 +29,45 @@ class Main:
         }
         initial_context = Configuration.prompt.initial.format_map(file_contexts)
 
-        self.__recruiter = Gemini(
+        gemini_configuration = BotModelConfiguration(
             Configuration.ia.gemini_model,
             Configuration.ia.gemini_api_key,
             Configuration.ia.temperature,
-            Configuration.persona.recruiter,
-            os.path.join(WORKING_DIRECTORY, Configuration.persona.recruiter_prompt_file),
+            initial_context
+        )
+        mistral_configuration = BotModelConfiguration(
+            Configuration.ia.mistral_model,
+            Configuration.ia.mistral_api_key,
+            Configuration.ia.temperature,
+            initial_context
+        )
+        openai_configuration = BotModelConfiguration(
+            Configuration.ia.openai_model,
+            Configuration.ia.openai_api_key,
+            Configuration.ia.temperature,
             initial_context
         )
 
-        if Configuration.ia.use_openai_assistant_api:
-            self.__candidate = OpenAIAssistantAPI(
-                Configuration.ia.openai_model,
-                Configuration.ia.openai_api_key,
-                Configuration.ia.temperature,
-                Configuration.persona.candidate,
-                os.path.join(WORKING_DIRECTORY, Configuration.persona.candidate_prompt_file),
-                initial_context
+        self.__bots = {
+            "gemini": Gemini(gemini_configuration),
+            "mistral": MistralCompletion(mistral_configuration),
+            "openai_completion": OpenAICompletionAPI(openai_configuration),
+            "openai_assistant": OpenAIAssistantAPI(openai_configuration)
+        }
+
+        self.__recruiter = self.__bots[Configuration.persona.recruiter].set_persona(
+            BotPersonaConfiguration(
+                Configuration.persona.recruiter_prefix,
+                os.path.join(WORKING_DIRECTORY, Configuration.persona.recruiter_prompt_file)
             )
-        else:
-            self.__candidate = OpenAICompletionAPI(
-                Configuration.ia.openai_model,
-                Configuration.ia.openai_api_key,
-                Configuration.ia.temperature,
-                Configuration.persona.candidate,
-                os.path.join(WORKING_DIRECTORY, Configuration.persona.candidate_prompt_file),
-                initial_context
+        )
+
+        self.__candidate = self.__bots[Configuration.persona.candidate].set_persona(
+            BotPersonaConfiguration(
+                Configuration.persona.candidate_prefix,
+                os.path.join(WORKING_DIRECTORY, Configuration.persona.candidate_prompt_file)
             )
+        )
 
     async def start_interview(self, max_turns: int):
         recruiter_response = await self.__recruiter.answer_to(Configuration.prompt.recruiter_start)
@@ -73,8 +87,6 @@ class Main:
 
         recruiter_response = await self.__recruiter.answer_to(Configuration.prompt.recruiter_end)
         print(recruiter_response)
-
-        self.__candidate.clean_resources()
 
 
 async def main():

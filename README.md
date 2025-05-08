@@ -37,8 +37,8 @@ python src/main.py --max-turns 5      # default value is 4
 
 - **Gemini Chat Session API** automatically tracks conversation history.
 - **OpenAI Assistant API**, also tracks conversation history but requires to create **an assistant**.
+   > ⚠️ The script creates assistants that are visible in the OpenAI API Platform Dashboard. These assistants are automatically deleted at the end of the script or on CTRL+C, but they may persist if the Python process is terminated abruptly (e.g., kill -9).
 - **OpenAI Completion API** and **Mistral Chat Completion API**, by contrast, requires that **the full conversation history be included with every request**.
-
 
 ## Workflow Overview
 
@@ -47,17 +47,15 @@ python src/main.py --max-turns 5      # default value is 4
    - the candidate's **resume** file `docs/candidates_resume.pdf`
    - the **job description** file `docs/job_description.pdf`
 
+
 2. **Pass Initial Context to Both Bots**  
    This prompt is sent to both Gemini and OpenAI.
 
-   > ⚠️ **Note**: Including full files in the prompt consumes a large number of tokens, do not use too large files — but this is just a POC.
+   > ⚠️ **Note**: Including full files in the prompt consumes a large number of tokens, do not use too large files — this is just a POC.
 
-3. **Inject Role-Specific Prompts**:
-   - `prompts/recruiter.txt` is passed to **Gemini** as a **user message** (⚠️ Gemini does not support `system` role).
-   - `prompts/candidate.txt` is passed to **OpenAI** as a **system prompt**.
 
 4. **Run the Interview**
-   - The conversation begins with **Gemini acting as the recruiter**.
+   - The conversation begins with the **recruiter**.
    - It will ask questions for **4 turns by default**.
    - At the end, it gives a **score** and a **GO/NOGO decision**.
 
@@ -68,12 +66,13 @@ python src/main.py --max-turns 5      # default value is 4
 |-|-|-
 | `ia`      | `geminiModel`           | [Gemini Model](https://ai.google.dev/gemini-api/docs/models)
 | `ia`      | `openAiModel`           | [OpenAI Model](https://platform.openai.com/docs/models)
-| `ia`      | `useOpenAiAssistantApi` | Boolean which indicates to use OpenAI Assistant API instead of Completion API
 | `ia`      | `temperature`           | Number which indicates how creative the models will be (0.0 = less creative, 1.0 = more creative)
-| `persona` | `recruiter`             | String which indicates the recruiter answers in the discussion
+| `persona` | `recruiter`             | String which indicates the bot to use as recruiter. Accepted values: `gemini`, `mistral`, `openai_completion`, `openai_assistant`
+| `persona` | `recruiterPrefix`       | String which indicates the recruiter answers in the discussion
 | `persona` | `recruiterContextFile`  | String which indicates the path to the job description
 | `persona` | `recruiterPromptFile`   | String which indicates the path to the prompt of the recruiter
-| `persona` | `candidate`             | String which indicates the candidate answers in the discussion
+| `persona` | `candidate`             | String which indicates the bot to use as candidate. Accepted values: `gemini`, `mistral`, `openai_completion`, `openai_assistant`
+| `persona` | `candidatePrefix`       | String which indicates the candidate answers in the discussion
 | `persona` | `candidateContextFile`  | String which indicates the path to the candidate's resume
 | `persona` | `candidatePromptFile`   | String which indicates the path to the prompt of the candidate
 | `prompt`  | `initial`               | String used to create initial context in which job description and candidate's resume are included

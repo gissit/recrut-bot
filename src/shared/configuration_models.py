@@ -6,7 +6,6 @@ class IaConfiguration(BaseSettings):
     gemini_model: str = Field(alias="geminiModel", default="")
     openai_model: str = Field(alias="openAiModel", default="")
     mistral_model: str = Field(alias="mistralModel", default="")
-    use_openai_assistant_api: bool = Field(alias="useOpenAiAssistantApi", default=False)
     temperature: float = Field(alias="temperature", default=1.0)
 
     openai_api_key: str = Field(alias="OPENAI_API_KEY", default="")
@@ -21,9 +20,11 @@ class IaConfiguration(BaseSettings):
 
 class PersonaConfiguration(BaseModel):
     recruiter: str = Field(alias="recruiter", default="")
+    recruiter_prefix: str = Field(alias="recruiterPrefix", default="")
     recruiter_context_file: str = Field(alias="recruiterContextFile", default="")
     recruiter_prompt_file: str = Field(alias="recruiterPromptFile", default="")
     candidate: str = Field(alias="candidate", default="")
+    candidate_prefix: str = Field(alias="candidatePrefix", default="")
     candidate_context_file: str = Field(alias="candidateContextFile", default="")
     candidate_prompt_file: str = Field(alias="candidatePromptFile", default="")
 
