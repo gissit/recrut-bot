@@ -24,7 +24,7 @@ class PersonaConfiguration(BaseModel):
         populate_by_name=False,
         extra="forbid"
     )
-    
+
     recruiter: str = Field(alias="recruiter", default="")
     recruiter_prefix: str = Field(alias="recruiterPrefix", default="")
     recruiter_context_file: str = Field(alias="recruiterContextFile", default="")

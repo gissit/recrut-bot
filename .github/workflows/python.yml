@@ -33,6 +33,11 @@ jobs:
         pip install flake8
         flake8 . --exclude=.venv --max-line-length=120
 
+    - name: Run tests with coverage
+      run: |
+        pip install pytest pytest-cov
+        pytest --cov=src tests/
+
     - name: Execute main.py for basic test
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

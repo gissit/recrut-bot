@@ -22,6 +22,8 @@ Miscellaneous commands
 ```bash
 rd .venv -Recurse -Force
 flake8 . --exclude=.venv --max-line-length=120
+pytest --cov=src tests/
+pytest --cov=src --cov-report=html tests/
 ```
 
 Create `.env` file at the root of the repository
@@ -72,6 +74,7 @@ python src/main.py --max-turns 5      # default value is 4
 |-|-
 | `geminiModel`           | [Gemini Model](https://ai.google.dev/gemini-api/docs/models)
 | `openAiModel`           | [OpenAI Model](https://platform.openai.com/docs/models)
+| `mistralModel`          | [Mistral Model](https://docs.mistral.ai/getting-started/models/models_overview)
 | `temperature`           | Number which indicates how creative the models will be (0.0 = less creative, 1.0 = more creative)
 
 ### Recruiter in persona section
