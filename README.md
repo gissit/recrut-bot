@@ -62,23 +62,40 @@ python src/main.py --max-turns 5      # default value is 4
 
 ## Settings file (`src/config.json`)
 
-| Section | Setting | Description
-|-|-|-
-| `ia`      | `geminiModel`           | [Gemini Model](https://ai.google.dev/gemini-api/docs/models)
-| `ia`      | `openAiModel`           | [OpenAI Model](https://platform.openai.com/docs/models)
-| `ia`      | `temperature`           | Number which indicates how creative the models will be (0.0 = less creative, 1.0 = more creative)
-| `persona` | `recruiter`             | String which indicates the bot to use as recruiter. Accepted values: `gemini`, `mistral`, `openai_completion`, `openai_assistant`
-| `persona` | `recruiterPrefix`       | String which indicates the recruiter answers in the discussion
-| `persona` | `recruiterContextFile`  | String which indicates the path to the job description
-| `persona` | `recruiterPromptFile`   | String which indicates the path to the prompt of the recruiter
-| `persona` | `candidate`             | String which indicates the bot to use as candidate. Accepted values: `gemini`, `mistral`, `openai_completion`, `openai_assistant`
-| `persona` | `candidatePrefix`       | String which indicates the candidate answers in the discussion
-| `persona` | `candidateContextFile`  | String which indicates the path to the candidate's resume
-| `persona` | `candidatePromptFile`   | String which indicates the path to the prompt of the candidate
-| `prompt`  | `initial`               | String used to create initial context in which job description and candidate's resume are included
-| `prompt`  | `recruiterStart`        | String used to start the interview
-| `prompt`  | `recruiterEnd`          | String used to end the interview on the recruiter side and give a recommendation
-| `prompt`  | `candidateEnd`          | String used to end the interview on the candidate side
+### IA section
+
+| Setting | Description
+|-|-
+| `geminiModel`           | [Gemini Model](https://ai.google.dev/gemini-api/docs/models)
+| `openAiModel`           | [OpenAI Model](https://platform.openai.com/docs/models)
+| `temperature`           | Number which indicates how creative the models will be (0.0 = less creative, 1.0 = more creative)
+
+### Recruiter in persona section
+
+| Setting | Description
+|-|-
+| `recruiter`             | String which indicates the bot to use as recruiter. Accepted values: `gemini`, `mistral`, `openai_completion`, `openai_assistant`
+| `recruiterPrefix`       | String which indicates the recruiter answers in the discussion
+| `recruiterContextFile`  | String which indicates the path to the job description
+| `recruiterPromptFile`   | String which indicates the path to the prompt of the recruiter
+
+### Candidate in persona section
+
+| Setting | Description
+|-|-
+| `candidate`             | String which indicates the bot to use as candidate. Accepted values: `gemini`, `mistral`, `openai_completion`, `openai_assistant`
+| `candidatePrefix`       | String which indicates the candidate answers in the discussion
+| `candidateContextFile`  | String which indicates the path to the candidate's resume
+| `candidatePromptFile`   | String which indicates the path to the prompt of the candidate
+
+### Prompts persona section
+
+| Setting | Description
+|-|-
+| `initial`               | String used to create initial context in which job description and candidate's resume are included
+| `recruiterStart`        | String used to start the interview
+| `recruiterEnd`          | String used to end the interview on the recruiter side and give a recommendation
+| `candidateEnd`          | String used to end the interview on the candidate side
 
 
 ## Sample interviews
