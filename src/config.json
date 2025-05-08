@@ -2,14 +2,15 @@
   "ia": {
     "geminiModel": "gemini-1.5-pro-latest",
     "openAiModel": "gpt-4o-mini",
+    "mistralModel": "mistral-medium",
     "useOpenAiAssistantApi": false,
     "temperature": 0.9
   },
   "persona": {
-    "recruiter": "GEMINI (recruteur) -- ",
+    "recruiter": "RECRUITER -- ",
     "recruiterContextFile": "docs/job_description.txt",
     "recruiterPromptFile": "prompts/recruiter.txt",
-    "candidate": "OPENAI (candidat) -- ",
+    "candidate": "CANDIDATE -- ",
     "candidateContextFile": "docs/candidates_resume.pdf",
     "candidatePromptFile": "prompts/candidate.txt"
   },
