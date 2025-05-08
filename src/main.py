@@ -2,7 +2,7 @@ import argparse
 import os
 import asyncio
 
-from shared import FileContext, Configuration, WORKING_DIRECTORY
+from shared import FileContext, Configuration, WORKING_DIRECTORY, APP_NAME
 from bots import Gemini, OpenAICompletionAPI, OpenAIAssistantAPI, MistralCompletion
 from bots import BotModelConfiguration, BotPersonaConfiguration
 
@@ -90,7 +90,7 @@ class Main:
 
 
 async def main():
-    parser = argparse.ArgumentParser(description="RecrutBot")
+    parser = argparse.ArgumentParser(description=APP_NAME)
     parser.add_argument("--max-turns", type=int, default=4, help="Maximum number of turns in the discussion")
 
     args = parser.parse_args()

@@ -4,6 +4,7 @@ import atexit
 
 from openai import OpenAI
 from .configuration import BotModelConfiguration, BotPersonaConfiguration
+from shared import APP_NAME
 
 
 class OpenAIAssistantAPI:
@@ -41,7 +42,7 @@ class OpenAIAssistantAPI:
             system = f.read()
 
         assistant = self.__openai_client.beta.assistants.create(
-            name="RecrutBot",
+            name=APP_NAME,
             instructions=system,
             model=self.__openai_model,
             temperature=self.__temperature,
