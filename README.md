@@ -37,7 +37,7 @@ Launch RecrutBot
 python src/main.py --max-turns 5      # default value is 4
 ```
 
-## AI Differences: Gemini vs OpenAI
+## AI Differences between platforms
 
 - **Gemini Chat Session API** automatically tracks conversation history.
 - **OpenAI Assistant API**, also tracks conversation history but requires to create **an assistant**.
@@ -92,7 +92,7 @@ python src/main.py --max-turns 5      # default value is 4
 | `candidateContextFile`  | String which indicates the path to the candidate's resume
 | `candidatePromptFile`   | String which indicates the path to the prompt of the candidate
 
-### Prompts persona section
+### Prompts section
 
 | Setting | Description
 |-|-
