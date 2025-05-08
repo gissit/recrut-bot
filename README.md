@@ -53,7 +53,7 @@ python src/main.py --max-turns 5      # default value is 4
 
 
 2. **Pass Initial Context to Both Bots**  
-   This prompt is sent to both Gemini and OpenAI.
+   This prompt is sent to both recruiter and candidate bots.
 
    > ⚠️ **Note**: Including full files in the prompt consumes a large number of tokens, do not use too large files — this is just a POC.
 
