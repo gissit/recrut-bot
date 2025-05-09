@@ -2,7 +2,7 @@ pytest
 pytest-asyncio
 pytest-cov
 flake8
-dataclass
+dataclasses
 pydantic
 pydantic-settings
 
