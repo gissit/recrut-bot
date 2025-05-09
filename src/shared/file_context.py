@@ -16,7 +16,7 @@ class FileContext:
         with open(self.__path, "r", encoding="utf-8") as f:
             return f.read()
 
-    def _split_text(self, text, chunk_size=1000, overlap=200):
+    def _split_text(self, text: str, chunk_size: int = 1000, overlap: int = 200):
         splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=overlap)
         return splitter.split_text(text)
 

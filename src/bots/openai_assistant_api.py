@@ -10,7 +10,7 @@ from shared import APP_NAME
 class OpenAIAssistantAPI:
     __openai_client: OpenAI | None = None
     __openai_model: str | None = None
-    __temperature: int = 0.0
+    __temperature: float = 0.0
     __initial_context: str | None = None
 
     __assistant_id: str | None = None

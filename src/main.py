@@ -8,7 +8,7 @@ from bots import BotModelConfiguration, BotPersonaConfiguration
 
 
 class Main:
-    __bots: list = []
+    __bots: dict[str, Gemini | MistralCompletion | OpenAICompletionAPI | OpenAIAssistantAPI] = {}
     __recruiter: Gemini | OpenAICompletionAPI | OpenAIAssistantAPI | MistralCompletion
     __candidate: Gemini | OpenAICompletionAPI | OpenAIAssistantAPI | MistralCompletion
 

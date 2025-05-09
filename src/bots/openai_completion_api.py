@@ -6,10 +6,10 @@ from .configuration import BotModelConfiguration, BotPersonaConfiguration
 class OpenAICompletionAPI:
     __openai_client: OpenAI | None = None
     __openai_model: str | None = None
-    __temperature: int = 0.0
+    __temperature: float = 0.0
 
     __persona: str | None = None
-    __history: list = []
+    __history: list[dict[str, str]] = []
 
     def __init__(
         self,

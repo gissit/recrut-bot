@@ -6,7 +6,7 @@ from .configuration import BotModelConfiguration, BotPersonaConfiguration
 class Gemini:
     __gemini_chat_session: genai.ChatSession | None = None
     __gemini_model: str | None = None
-    __temperature: int = 0.0
+    __temperature: float = 0.0
 
     __persona: str | None = None
     __history: list = []
@@ -31,13 +31,13 @@ class Gemini:
 
         self.__history.insert(0, {"role": "user", "parts": [system]})
 
-        gmodel = genai.GenerativeModel(model_name=self.__gemini_model)
+        gemini_model = genai.GenerativeModel(model_name=self.__gemini_model)
 
-        self.__gemini_chat_session = gmodel.start_chat(history=self.__history)
+        self.__gemini_chat_session = gemini_model.start_chat(history=self.__history)
 
         return self
 
-    async def answer_to(self, message):
+    async def answer_to(self, message: str):
         response = self.__gemini_chat_session.send_message(
             message,
             generation_config={"temperature": self.__temperature}

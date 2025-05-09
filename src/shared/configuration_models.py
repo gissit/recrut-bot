@@ -1,9 +1,9 @@
 from pydantic import BaseModel, ConfigDict, Field
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class IaConfiguration(BaseSettings):
-    model_config = ConfigDict(
+    model_config = SettingsConfigDict(
         populate_by_name=False,
         extra="ignore",
         env_file=".env"
