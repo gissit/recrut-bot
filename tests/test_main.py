@@ -1,5 +1,3 @@
-import os
-
 from unittest.mock import patch, MagicMock
 from src import Main
 from src.shared.file_context import FileContext
