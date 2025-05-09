@@ -1,4 +1,4 @@
-from mistralai import Mistral
+from mistralai import Messages, Mistral, SystemMessage, UserMessage
 
 from .configuration import BotModelConfiguration, BotPersonaConfiguration
 
@@ -9,7 +9,7 @@ class MistralCompletion:
     __temperature: float = 0.0
 
     __persona: str | None = None
-    __history: list = []
+    __history: list[Messages] = []
 
     def __init__(
         self,
@@ -20,7 +20,7 @@ class MistralCompletion:
         self.__temperature = model_configuration.temperature
 
         self.__history = [
-            {"role": "user", "content": model_configuration.initial_context},
+            UserMessage(content=model_configuration.initial_context)
         ]
 
     def set_persona(self, persona_configuration: BotPersonaConfiguration):
@@ -29,12 +29,15 @@ class MistralCompletion:
         with open(persona_configuration.prompt_file_path, encoding="utf-8") as f:
             system = f.read()
 
-        self.__history.insert(0, {"role": "system", "content": system})
+        self.__history.insert(0, SystemMessage(content=system))
 
         return self
 
     async def answer_to(self, message: str):
-        self.__history.append({"role": "user", "content": message})
+        assert self.__mistral_client is not None
+        assert self.__mistral_model is not None
+
+        self.__history.append(UserMessage(content=message))
 
         response = self.__mistral_client.chat.complete(
             model=self.__mistral_model,

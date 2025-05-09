@@ -1,7 +1,9 @@
 import asyncio
 import signal
 import atexit
+import types
 
+from typing import Optional
 from openai import OpenAI
 from .configuration import BotModelConfiguration, BotPersonaConfiguration
 from shared import APP_NAME
@@ -23,19 +25,26 @@ class OpenAIAssistantAPI:
         model_configuration: BotModelConfiguration
     ):
         atexit.register(self._delete_assistant)
-        signal.signal(signal.SIGINT, self._delete_assistant)
-        signal.signal(signal.SIGTERM, self._delete_assistant)
+        signal.signal(signal.SIGINT, self._delete_assistant_signal)
+        signal.signal(signal.SIGTERM, self._delete_assistant_signal)
 
         self.__openai_client = OpenAI(api_key=model_configuration.api_key)
         self.__openai_model = model_configuration.model
         self.__temperature = model_configuration.temperature
         self.__initial_context = model_configuration.initial_context
 
+    def _delete_assistant_signal(self, signum: int, frame: Optional[types.FrameType]):
+        self._delete_assistant()
+
     def _delete_assistant(self):
-        if self.__assistant_id is not None:
+        if self.__openai_client is not None and self.__assistant_id is not None:
             self.__openai_client.beta.assistants.delete(self.__assistant_id)
 
     def set_persona(self, persona_configuration: BotPersonaConfiguration):
+        assert self.__openai_client is not None
+        assert self.__openai_model is not None
+        assert self.__initial_context is not None
+
         self.__persona = persona_configuration.persona
 
         with open(persona_configuration.prompt_file_path, encoding="utf-8") as f:
@@ -59,6 +68,13 @@ class OpenAIAssistantAPI:
         return self
 
     async def answer_to(self, message: str):
+        if self.__thread_id is None or self.__assistant_id is None:
+            raise Exception("Assistant not initialized. Please set the persona first.")
+
+        assert self.__openai_client is not None
+        assert self.__thread_id is not None
+        assert self.__assistant_id is not None
+
         self.__openai_client.beta.threads.messages.create(
             thread_id=self.__thread_id,
             role="user",

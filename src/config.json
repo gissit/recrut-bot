@@ -6,14 +6,14 @@
     "temperature": 0.9
   },
   "persona": {
-    "recruiter": "openai_completion",
+    "recruiter": "gemini",
     "recruiterPrefix": "RECRUITER -- ",
-    "recruiterContextFile": "docs/job_description.txt",
-    "recruiterPromptFile": "prompts/recruiter.txt",
-    "candidate": "openai_assistant",
+    "recruiterContextFile": "resources/docs/job_description.txt",
+    "recruiterPromptFile": "resources/prompts/recruiter.txt",
+    "candidate": "openai_completion",
     "candidatePrefix": "CANDIDATE -- ",
-    "candidateContextFile": "docs/candidates_resume.pdf",
-    "candidatePromptFile": "prompts/candidate.txt"
+    "candidateContextFile": "resources/docs/candidates_resume.pdf",
+    "candidatePromptFile": "resources/prompts/candidate.txt"
   },
   "prompt": {
     "initial": "Recruter un candidat dont le CV est {CV_CONTEXT} pour la fiche de poste suivante {POSTE_CONTEXT}.",

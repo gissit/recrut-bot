@@ -34,6 +34,9 @@ class OpenAICompletionAPI:
         return self
 
     async def answer_to(self, message: str):
+        assert self.__openai_client is not None
+        assert self.__openai_model is not None
+
         self.__history.append({"role": "user", "content": message})
 
         response = self.__openai_client.chat.completions.create(

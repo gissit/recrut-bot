@@ -9,7 +9,7 @@ class Gemini:
     __temperature: float = 0.0
 
     __persona: str | None = None
-    __history: list = []
+    __history: list[dict[str, str | list[str]]] = []
 
     def __init__(
         self,
@@ -24,6 +24,8 @@ class Gemini:
         ]
 
     def set_persona(self, persona_configuration: BotPersonaConfiguration):
+        assert self.__gemini_model is not None
+
         self.__persona = persona_configuration.persona
 
         with open(persona_configuration.prompt_file_path, encoding="utf-8") as f:

@@ -8,7 +8,7 @@ from bots import BotModelConfiguration, BotPersonaConfiguration
 
 
 class Main:
-    __bots: dict[str, Gemini | MistralCompletion | OpenAICompletionAPI | OpenAIAssistantAPI] = {}
+    __bots: dict[str, Gemini | OpenAICompletionAPI | OpenAIAssistantAPI | MistralCompletion] = {}
     __recruiter: Gemini | OpenAICompletionAPI | OpenAIAssistantAPI | MistralCompletion
     __candidate: Gemini | OpenAICompletionAPI | OpenAIAssistantAPI | MistralCompletion
 
@@ -61,7 +61,6 @@ class Main:
                 os.path.join(WORKING_DIRECTORY, Configuration.persona.recruiter_prompt_file)
             )
         )
-
         self.__candidate = self.__bots[Configuration.persona.candidate].set_persona(
             BotPersonaConfiguration(
                 Configuration.persona.candidate_prefix,
