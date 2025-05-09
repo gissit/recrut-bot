@@ -16,7 +16,7 @@ def test_mistral_initialization(mock_mistral):
     mistral = MistralCompletion(cfg)
 
     mock_mistral.assert_called_once_with(api_key="fake-key")
-    assert mistral._MistralCompletion__history[0]["content"] == "Bonjour"
+    assert mistral._MistralCompletion__history[0].content == "Bonjour"
 
 
 @patch("builtins.open", new_callable=mock_open, read_data="System prompt for Mistral")
@@ -38,8 +38,8 @@ def test_mistral_set_persona(mock_mistral, mock_file):
 
     assert result is mistral
     assert mistral._MistralCompletion__persona == "M1"
-    assert mistral._MistralCompletion__history[0]["role"] == "system"
-    assert mistral._MistralCompletion__history[0]["content"] == "System prompt for Mistral"
+    assert mistral._MistralCompletion__history[0].role == "system"
+    assert mistral._MistralCompletion__history[0].content == "System prompt for Mistral"
 
 
 @patch("src.bots.mistral_completion.Mistral")
