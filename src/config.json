@@ -8,11 +8,11 @@
   "persona": {
     "recruiter": "gemini",
     "recruiterPrefix": "RECRUITER -- ",
-    "recruiterContextFile": "resources/docs/job_description.txt",
+    "recruiterContextFile": "resources/context/job_description.txt",
     "recruiterPromptFile": "resources/prompts/recruiter.txt",
     "candidate": "openai_completion",
     "candidatePrefix": "CANDIDATE -- ",
-    "candidateContextFile": "resources/docs/candidates_resume.pdf",
+    "candidateContextFile": "resources/context/candidates_resume.pdf",
     "candidatePromptFile": "resources/prompts/candidate.txt"
   },
   "prompt": {
