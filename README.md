@@ -49,9 +49,9 @@ python src/main.py --max-turns 5      # default value is 4
 ## Workflow Overview
 
 1. **Initialize Context**  
-   We start by preparing a simple initial prompt from `config.json > prompt.initial`, which includes:
-   - the candidate's **resume** file `docs/candidates_resume.pdf`
-   - the **job description** file `docs/job_description.pdf`
+   We start by preparing a simple initial prompt from [`config.json > prompt.initial`](src/config.json), which includes:
+   - the candidate's **resume** file `resources/context/candidates_resume.pdf`
+   - the **job description** file `resources/context/job_description.txt`
 
 
 2. **Pass Initial Context to Both Bots**  
@@ -111,5 +111,5 @@ Tries to **recruit an IT engineer for a babysitting job** — and have fun exper
 
 | Langage | GO | NOGO
 |-|-|-
-| English | [`chats/babysitter_GO_EN.md`](./chats/babysitter_GO_EN.md) | [`chats/babysitter_NOGO_EN.md`](./chats/babysitter_NOGO_EN.md)
-| French  | [`chats/babysitter_GO_FR.md`](./chats/babysitter_GO_FR.md) | [`chats/babysitter_NOGO_FR.md`](./chats/babysitter_NOGO_FR.md)
+| English | [`docs/babysitter_GO_EN.md`](./docs/babysitter_GO_EN.md) | [`docs/babysitter_NOGO_EN.md`](./docs/babysitter_NOGO_EN.md)
+| French  | [`docs/babysitter_GO_FR.md`](./docs/babysitter_GO_FR.md) | [`docs/babysitter_NOGO_FR.md`](./docs/babysitter_NOGO_FR.md)
