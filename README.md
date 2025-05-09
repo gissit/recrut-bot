@@ -66,7 +66,7 @@ python src/main.py --max-turns 5      # default value is 4
    - At the end, it gives a **score** and a **GO/NOGO decision**.
 
 
-## Settings file (`src/config.json`)
+## Settings file ([`src/config.json`](src/config.json))
 
 ### IA section
 
