@@ -33,13 +33,13 @@ jobs:
         flake8 . --exclude=.venv --max-line-length=120
 
     - name: Run tests with coverage
-      run: |
-        source .venv/bin/activate
-        pytest --cov=src tests/
       env:
         OPENAI_API_KEY: fake
         GEMINI_API_KEY: fake
         MISTRAL_API_KEY: fake
+      run: |
+        source .venv/bin/activate
+        pytest --cov=src tests/
 
     - name: Execute main.py for basic test
       env:
