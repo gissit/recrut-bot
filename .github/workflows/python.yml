@@ -30,18 +30,22 @@ jobs:
     - name: Check code with flake8
       run: |
         source .venv/bin/activate
-        pip install flake8
         flake8 . --exclude=.venv --max-line-length=120
 
     - name: Run tests with coverage
       run: |
         source .venv/bin/activate
         pytest --cov=src tests/
+      env:
+        OPENAI_API_KEY: fake
+        GEMINI_API_KEY: fake
+        MISTRAL_API_KEY: fake
 
     - name: Execute main.py for basic test
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
       run: |
         source .venv/bin/activate
         python src/main.py --max-turns 0

@@ -9,11 +9,6 @@ from src.bots.openai_assistant_api import OpenAIAssistantAPI
 from src.bots.openai_completion_api import OpenAICompletionAPI
 
 
-@patch.dict(os.environ, {
-    "OPENAI_API_KEY": "fake",
-    "GEMINI_API_KEY": "fake",
-    "MISTRAL_API_KEY": "fake"
-})
 @patch("src.main.FileContext")
 @patch("src.main.Gemini")
 @patch("src.main.MistralCompletion")
