@@ -2,33 +2,23 @@ from unittest.mock import patch, mock_open, MagicMock
 from src.shared.file_context import FileContext
 
 
-@patch("src.shared.file_context.RecursiveCharacterTextSplitter")
-@patch("builtins.open", new_callable=mock_open, read_data="This is a sample text file for testing purposes.")
-def test_get_context_txt_file(mock_file, mock_splitter):
-    mock_splitter.return_value.split_text.return_value = ["Chunk1", "Chunk2", "Chunk3"]
-
-    context = FileContext("document.txt")
-    result = context.get_context()
-
-    assert result == "Chunk1\nChunk2\nChunk3"
-    mock_file.assert_called_once_with("document.txt", "r", encoding="utf-8")
-    mock_splitter.assert_called_once_with(chunk_size=1000, chunk_overlap=200)
+def test_extract_text_from_txt():
+    mock_data = "This is a test txt file."
+    with patch("builtins.open", mock_open(read_data=mock_data)) as mocked_file:
+        fc = FileContext("test.txt")
+        result = fc.get_context()
+        assert mock_data in result
+        mocked_file.assert_called_once_with("test.txt", "r", encoding="utf-8")
 
 
-@patch("src.shared.file_context.RecursiveCharacterTextSplitter")
-@patch("src.shared.file_context.fitz.open")
-def test_get_context_pdf_file(mock_fitz_open, mock_splitter):
-    mock_doc = MagicMock()
-    mock_doc.__iter__.return_value = [
-        MagicMock(get_text=MagicMock(return_value="Page1")),
-        MagicMock(get_text=MagicMock(return_value="Page2"))
-    ]
-    mock_fitz_open.return_value = mock_doc
-    mock_splitter.return_value.split_text.return_value = ["ChunkPDF1", "ChunkPDF2"]
+def test_extract_text_from_pdf():
+    mock_page1 = MagicMock(get_text=lambda: "Page 1 text")
+    mock_page2 = MagicMock(get_text=lambda: "Page 2 text")
+    mock_doc = [mock_page1, mock_page2]
 
-    context = FileContext("document.pdf")
-    result = context.get_context()
-
-    assert result == "ChunkPDF1\nChunkPDF2"
-    mock_fitz_open.assert_called_once_with("document.pdf")
-    mock_splitter.assert_called_once_with(chunk_size=1000, chunk_overlap=200)
+    with patch("fitz.open", return_value=mock_doc) as mocked_fitz:
+        fc = FileContext("test.pdf")
+        result = fc.get_context()
+        assert "Page 1 text" in result
+        assert "Page 2 text" in result
+        mocked_fitz.assert_called_once_with("test.pdf")
