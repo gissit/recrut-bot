@@ -2,6 +2,7 @@ import asyncio
 import signal
 import atexit
 import types
+import sys
 
 from typing import Optional
 from openai import OpenAI
@@ -35,6 +36,7 @@ class OpenAIAssistantAPI:
 
     def _delete_assistant_signal(self, signum: int, frame: Optional[types.FrameType]):
         self._delete_assistant()
+        sys.exit(0)
 
     def _delete_assistant(self):
         if self.__openai_client is not None and self.__assistant_id is not None:
