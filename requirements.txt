@@ -13,6 +13,3 @@ mistralai
 
 # traitement de texte
 PyMuPDF
-
-# LangChain RAG
-langchain>=0.1.7
