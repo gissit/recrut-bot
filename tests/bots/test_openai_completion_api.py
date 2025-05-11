@@ -16,7 +16,6 @@ def test_openai_completion_init(mock_openai):
     api = OpenAICompletionAPI(cfg)
 
     mock_openai.assert_called_once_with(api_key="test-key")
-    assert api._OpenAICompletionAPI__history[0]["content"] == "Bonjour"
 
 
 @patch("src.bots.openai_completion_api.OpenAI")

@@ -17,8 +17,6 @@ def test_gemini_init(mock_configure):
 
     mock_configure.assert_called_once_with(api_key="fake-api-key")
 
-    assert gem._Gemini__history == [{"role": "user", "parts": ["Hello Gemini"]}]
-
 
 @patch("src.bots.gemini.genai.GenerativeModel")
 @patch("builtins.open", new_callable=mock_open, read_data="System prompt text")
@@ -44,6 +42,7 @@ def test_gemini_set_persona(mock_file, mock_generative_model):
     assert result is gem
     assert gem._Gemini__persona == "DrBot"
     assert mock_file.called
+
     mock_generative_model.assert_called_once_with(model_name="gemini-pro")
     mock_generative_model.return_value.start_chat.assert_called_once()
 

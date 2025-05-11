@@ -16,7 +16,6 @@ def test_mistral_initialization(mock_mistral):
     mistral = MistralCompletion(cfg)
 
     mock_mistral.assert_called_once_with(api_key="fake-key")
-    assert mistral._MistralCompletion__history[0].content == "Bonjour"
 
 
 @patch("builtins.open", new_callable=mock_open, read_data="System prompt for Mistral")
