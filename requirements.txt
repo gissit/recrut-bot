@@ -5,11 +5,9 @@ flake8
 dataclasses
 pydantic
 pydantic-settings
+PyMuPDF
 
 # LLMs
 openai>=1.10.0
 google-generativeai>=0.3.2
 mistralai
-
-# traitement de texte
-PyMuPDF

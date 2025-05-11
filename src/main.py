@@ -55,20 +55,22 @@ class Main:
             "openai_assistant": OpenAIAssistantAPI(openai_configuration)
         }
 
-        self.__recruiter = self.__bots[Configuration.persona.recruiter].set_persona(
-            BotPersonaConfiguration(
-                Configuration.persona.recruiter_prefix,
-                os.path.join(WORKING_DIRECTORY, Configuration.persona.recruiter_prompt_file)
-            )
+    def __setup_interview(self):
+        recruiter_persona = BotPersonaConfiguration(
+            Configuration.persona.recruiter_prefix,
+            os.path.join(WORKING_DIRECTORY, Configuration.persona.recruiter_prompt_file)
         )
-        self.__candidate = self.__bots[Configuration.persona.candidate].set_persona(
-            BotPersonaConfiguration(
-                Configuration.persona.candidate_prefix,
-                os.path.join(WORKING_DIRECTORY, Configuration.persona.candidate_prompt_file)
-            )
+        self.__recruiter = self.__bots[Configuration.persona.recruiter].set_persona(recruiter_persona)
+
+        candidate_persona = BotPersonaConfiguration(
+            Configuration.persona.candidate_prefix,
+            os.path.join(WORKING_DIRECTORY, Configuration.persona.candidate_prompt_file)
         )
+        self.__candidate = self.__bots[Configuration.persona.candidate].set_persona(candidate_persona)
 
     async def start_interview(self, max_turns: int):
+        self.__setup_interview()
+
         recruiter_response = await self.__recruiter.answer_to(Configuration.prompt.recruiter_start)
         print(recruiter_response)
 
