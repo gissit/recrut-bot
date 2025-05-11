@@ -1,76 +1,63 @@
 import pytest
-from unittest.mock import patch, mock_open, MagicMock
+from unittest.mock import MagicMock, patch
+
 from src.bots.gemini import Gemini
 from src.bots.configuration import BotModelConfiguration, BotPersonaConfiguration
 
 
-@patch("src.bots.gemini.genai.configure")
-def test_gemini_init(mock_configure):
-    cfg = BotModelConfiguration(
-        model="gemini-pro",
+@pytest.fixture
+def model_config():
+    return BotModelConfiguration(
         api_key="fake-api-key",
-        temperature=0.7,
-        initial_context="Hello Gemini"
+        model="fake-model",
+        temperature=0.6,
+        initial_context="Hello Gemini!"
     )
 
-    gem = Gemini(cfg)
 
-    mock_configure.assert_called_once_with(api_key="fake-api-key")
+@pytest.fixture
+def persona_config(tmp_path):
+    prompt_path = tmp_path / "persona.txt"
+    prompt_path.write_text("System prompt Gemini")
+    return BotPersonaConfiguration(
+        persona="Bob",
+        prompt_file_path=str(prompt_path)
+    )
 
 
 @patch("src.bots.gemini.genai.GenerativeModel")
-@patch("builtins.open", new_callable=mock_open, read_data="System prompt text")
-def test_gemini_set_persona(mock_file, mock_generative_model):
+def test_set_persona(mock_model, model_config, persona_config):
     mock_chat_session = MagicMock()
-    mock_generative_model.return_value.start_chat.return_value = mock_chat_session
+    mock_model.return_value.start_chat.return_value = mock_chat_session
 
-    persona_cfg = BotPersonaConfiguration(
-        persona="DrBot",
-        prompt_file_path="persona.txt"
-    )
+    gemini = Gemini(model_config)
+    gemini.set_persona(persona_config)
 
-    model_cfg = BotModelConfiguration(
-        model="gemini-pro",
-        api_key="fake-api-key",
-        temperature=0.7,
-        initial_context="Hello Gemini"
-    )
-
-    gem = Gemini(model_cfg)
-    result = gem.set_persona(persona_cfg)
-
-    assert result is gem
-    assert gem._Gemini__persona == "DrBot"
-    assert mock_file.called
-
-    mock_generative_model.assert_called_once_with(model_name="gemini-pro")
-    mock_generative_model.return_value.start_chat.assert_called_once()
+    assert gemini._Gemini__persona == "Bob"
+    assert gemini._Gemini__history[0]["parts"] == ["System prompt Gemini"]
+    assert gemini._Gemini__history[1]["parts"] == [model_config.initial_context]
+    assert gemini._Gemini__service is mock_chat_session
 
 
-@patch("src.bots.gemini.genai.GenerativeModel")
-@patch("builtins.open", new_callable=mock_open, read_data="System prompt")
 @pytest.mark.asyncio
-async def test_gemini_answer_to(mock_file, mock_generative_model):
+@patch("src.bots.gemini.genai.GenerativeModel")
+async def test_answer_to(mock_model, model_config, persona_config):
+    mock_response = MagicMock()
+    mock_response.text = "Ceci est une réponse simulée."
+
     mock_chat_session = MagicMock()
-    mock_chat_session.send_message.return_value.text = "  The answer.  "
-    mock_generative_model.return_value.start_chat.return_value = mock_chat_session
+    mock_chat_session.send_message.return_value = mock_response
 
-    model_cfg = BotModelConfiguration(
-        model="gemini-pro",
-        api_key="fake",
-        temperature=0.5,
-        initial_context="Hi"
-    )
-    persona_cfg = BotPersonaConfiguration(
-        persona="X",
-        prompt_file_path="prompt.txt"
-    )
+    mock_model.return_value.start_chat.return_value = mock_chat_session
 
-    gem = Gemini(model_cfg).set_persona(persona_cfg)
-    response = await gem.answer_to("Tell me something")
+    gemini = Gemini(model_config)
+    gemini.set_persona(persona_config)
 
-    assert response == "\nGEMINI XThe answer."
+    response = await gemini.answer_to("Bonjour !")
+
+    assert response.startswith("\nGEMINI Bob")
+    assert "Ceci est une réponse simulée." in response
     mock_chat_session.send_message.assert_called_once_with(
-        "Tell me something",
-        generation_config={"temperature": 0.5}
+        "Bonjour !",
+        generation_config={"temperature": 0.6}
     )

@@ -1,65 +1,77 @@
 import pytest
-from unittest.mock import patch, mock_open, MagicMock
+from unittest.mock import MagicMock, patch
+
 from src.bots.openai_completion_api import OpenAICompletionAPI
 from src.bots.configuration import BotModelConfiguration, BotPersonaConfiguration
 
 
-@patch("src.bots.openai_completion_api.OpenAI")
-def test_openai_completion_init(mock_openai):
-    cfg = BotModelConfiguration(
-        model="gpt-3.5",
-        api_key="test-key",
-        temperature=0.7,
-        initial_context="Bonjour"
+@pytest.fixture
+def model_config():
+    return BotModelConfiguration(
+        api_key="fake-api-key",
+        model="gpt-fake-model",
+        temperature=0.5,
+        initial_context="Bonjour, je suis un utilisateur."
     )
 
-    api = OpenAICompletionAPI(cfg)
 
-    mock_openai.assert_called_once_with(api_key="test-key")
-
-
-@patch("src.bots.openai_completion_api.OpenAI")
-@patch("builtins.open", new_callable=mock_open, read_data="System instruction")
-def test_set_persona(mock_file, mock_openai):
-    cfg = BotModelConfiguration(
-        model="gpt-3.5",
-        api_key="test-key",
-        temperature=0.7,
-        initial_context="Init context"
-    )
-    persona_cfg = BotPersonaConfiguration(
-        persona="Alex",
-        prompt_file_path="persona.txt"
+@pytest.fixture
+def persona_config(tmp_path):
+    prompt_file = tmp_path / "prompt.txt"
+    prompt_file.write_text("Vous etes un assistant utile.")
+    return BotPersonaConfiguration(
+        persona="Alice",
+        prompt_file_path=str(prompt_file)
     )
 
-    api = OpenAICompletionAPI(cfg)
-    result = api.set_persona(persona_cfg)
 
-    assert result is api
-    assert api._OpenAICompletionAPI__persona == "Alex"
-    assert api._OpenAICompletionAPI__history[0]["role"] == "system"
-    assert api._OpenAICompletionAPI__history[0]["content"] == "System instruction"
+def test_set_persona(model_config, persona_config):
+    instance = OpenAICompletionAPI(model_config)
+    instance.set_persona(persona_config)
+
+    history = instance._OpenAICompletionAPI__history
+    assert history[0]["role"] == "system"
+    assert history[0]["content"] == "Vous etes un assistant utile."
+    assert history[1]["role"] == "user"
+    assert history[1]["content"] == model_config.initial_context
+    assert instance._OpenAICompletionAPI__persona == "Alice"
 
 
-@patch("src.bots.openai_completion_api.OpenAI")
 @pytest.mark.asyncio
-async def test_answer_to(mock_openai):
-    mock_response = MagicMock()
-    mock_response.choices = [
-        MagicMock(message=MagicMock(content="  Hello world!  "))
-    ]
-    mock_openai.return_value.chat.completions.create.return_value = mock_response
+@patch("src.bots.openai_completion_api.OpenAI")
+async def test_answer_to(mock_openai, model_config, persona_config):
+    # Préparer la réponse simulée
+    fake_message = MagicMock()
+    fake_message.content = "Réponse de test."
+    fake_message.role = "assistant"
 
-    cfg = BotModelConfiguration(
-        model="gpt-3.5",
-        api_key="fake",
-        temperature=0.6,
-        initial_context="Bonjour"
-    )
+    fake_choice = MagicMock()
+    fake_choice.message = fake_message
 
-    api = OpenAICompletionAPI(cfg)
-    api._OpenAICompletionAPI__persona = "AI"
-    result = await api.answer_to("Salut")
+    fake_response = MagicMock()
+    fake_response.choices = [fake_choice]
 
-    assert result == "\nOPENAI COMPLETION AIHello world!"
-    mock_openai.return_value.chat.completions.create.assert_called_once()
+    mock_instance = mock_openai.return_value
+    mock_instance.chat.completions.create.return_value = fake_response
+
+    instance = OpenAICompletionAPI(model_config)
+    instance.set_persona(persona_config)
+
+    result = await instance.answer_to("Quel temps fait-il ?")
+
+    assert result.startswith("\nOPENAI COMPLETION Alice")
+    assert "Réponse de test." in result
+
+    last_message = instance._OpenAICompletionAPI__history[-1]
+    assert last_message.role == "assistant"
+    assert last_message.content == "Réponse de test."
+
+    mock_instance.chat.completions.create.assert_called_once()
+    args, kwargs = mock_instance.chat.completions.create.call_args
+
+    assert kwargs["model"] == model_config.model
+    assert kwargs["temperature"] == model_config.temperature
+
+    messages = kwargs["messages"]
+    assert isinstance(messages, list)
+    assert messages[-2]["content"] == "Quel temps fait-il ?"
