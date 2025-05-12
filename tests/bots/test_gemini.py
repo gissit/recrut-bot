@@ -1,8 +1,11 @@
 import pytest
 from unittest.mock import MagicMock, patch
 
-from src.bots.gemini import Gemini
-from src.bots.configuration import BotModelConfiguration, BotPersonaConfiguration
+from src.bots import (
+    Gemini,
+    BotModelConfiguration,
+    BotPersonaConfiguration
+)
 
 
 @pytest.fixture

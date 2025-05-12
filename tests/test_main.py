@@ -1,10 +1,12 @@
 from unittest.mock import patch, MagicMock
 from src import Main
-from src.shared.file_context import FileContext
-from src.bots.gemini import Gemini
-from src.bots.mistral_completion import MistralCompletion
-from src.bots.openai_assistant_api import OpenAIAssistantAPI
-from src.bots.openai_completion_api import OpenAICompletionAPI
+from src.shared import FileContext
+from src.bots import (
+    Gemini,
+    MistralCompletion,
+    OpenAIAssistantAPI,
+    OpenAICompletionAPI
+)
 
 
 @patch("src.main.FileContext")

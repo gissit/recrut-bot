@@ -1,5 +1,5 @@
 from unittest.mock import patch, mock_open, MagicMock
-from src.shared.file_context import FileContext
+from src.shared import FileContext
 
 
 def test_extract_text_from_txt():

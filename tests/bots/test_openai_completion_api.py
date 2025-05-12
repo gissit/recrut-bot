@@ -1,8 +1,11 @@
 import pytest
 from unittest.mock import MagicMock, patch
 
-from src.bots.openai_completion_api import OpenAICompletionAPI
-from src.bots.configuration import BotModelConfiguration, BotPersonaConfiguration
+from src.bots import (
+    OpenAICompletionAPI,
+    BotModelConfiguration,
+    BotPersonaConfiguration
+)
 
 
 @pytest.fixture

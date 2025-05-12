@@ -1,4 +1,7 @@
-from bots.configuration import BotModelConfiguration, BotPersonaConfiguration
+from src.bots import (
+    BotModelConfiguration,
+    BotPersonaConfiguration
+)
 
 
 def test_bot_model_configuration_initialization():

@@ -1,8 +1,11 @@
 import pytest
 from unittest.mock import MagicMock
 
-from src.bots.mistral_completion import MistralCompletion
-from src.bots.configuration import BotModelConfiguration, BotPersonaConfiguration
+from src.bots import (
+    MistralCompletion,
+    BotModelConfiguration,
+    BotPersonaConfiguration
+)
 from mistralai import SystemMessage, UserMessage
 
 

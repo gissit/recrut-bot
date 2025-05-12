@@ -1,7 +1,10 @@
 import pytest
 from unittest.mock import patch, mock_open, MagicMock
-from src.bots.openai_assistant_api import OpenAIAssistantAPI
-from src.bots.configuration import BotModelConfiguration, BotPersonaConfiguration
+from src.bots import (
+    OpenAIAssistantAPI,
+    BotModelConfiguration,
+    BotPersonaConfiguration
+)
 
 
 @patch("src.bots.openai_assistant_api.OpenAI")
