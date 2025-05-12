@@ -1,30 +1,25 @@
+from typing import Optional
 import google.generativeai as genai
 
 from .configuration import BotModelConfiguration, BotPersonaConfiguration
 
 
 class Gemini:
-    __service: genai.ChatSession | None = None
-    __model: str | None = None
-    __history: list[dict[str, str | list[str]]] = []
-    __initial_context: str | None = None
-
-    __persona: str | None = None
-    __temperature: float = 0.0
-
     def __init__(
         self,
         model_configuration: BotModelConfiguration
     ):
+        self.__service: Optional[genai.ChatSession] = None
+        self.__persona: Optional[str] = None
+        self.__history: list[dict[str, str | list[str]]] = []
+
         self.__initial_context = model_configuration.initial_context
-        genai.configure(api_key=model_configuration.api_key)
-        self.__model = model_configuration.model
         self.__temperature = model_configuration.temperature
 
-    def set_persona(self, persona_configuration: BotPersonaConfiguration):
-        assert self.__model is not None
-        assert self.__initial_context is not None
+        genai.configure(api_key=model_configuration.api_key)
+        self.__model = model_configuration.model
 
+    def set_persona(self, persona_configuration: BotPersonaConfiguration):
         self.__persona = persona_configuration.persona
 
         with open(persona_configuration.prompt_file_path, encoding="utf-8") as f:

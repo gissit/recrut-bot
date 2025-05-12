@@ -1,25 +1,22 @@
+from typing import Optional
 from mistralai import Messages, Mistral, SystemMessage, UserMessage
 
 from .configuration import BotModelConfiguration, BotPersonaConfiguration
 
 
 class MistralCompletion:
-    __service: Mistral | None = None
-    __model: str | None = None
-    __history: list[Messages] = []
-    __initial_context: str | None = None
-
-    __persona: str | None = None
-    __temperature: float = 0.0
-
     def __init__(
         self,
         model_configuration: BotModelConfiguration
     ):
+        self.__persona: Optional[str] = None
+        self.__history: list[Messages] = []
+
         self.__initial_context = model_configuration.initial_context
+        self.__temperature = model_configuration.temperature
+
         self.__service = Mistral(api_key=model_configuration.api_key)
         self.__model = model_configuration.model
-        self.__temperature = model_configuration.temperature
 
     def set_persona(self, persona_configuration: BotPersonaConfiguration):
         self.__persona = persona_configuration.persona
@@ -35,9 +32,6 @@ class MistralCompletion:
         return self
 
     async def answer_to(self, message: str):
-        assert self.__service is not None
-        assert self.__model is not None
-
         self.__history.append(UserMessage(content=message))
 
         response = self.__service.chat.complete(
