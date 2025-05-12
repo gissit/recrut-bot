@@ -2,9 +2,20 @@ import argparse
 import os
 import asyncio
 
-from shared import FileContext, Configuration, WORKING_DIRECTORY, APP_NAME
-from bots import Gemini, OpenAICompletionAPI, OpenAIAssistantAPI, MistralCompletion
-from bots import BotModelConfiguration, BotPersonaConfiguration
+from shared import (
+    FileContext,
+    Configuration,
+    WORKING_DIRECTORY,
+    APP_NAME
+)
+from bots import (
+    BotModelConfiguration,
+    BotPersonaConfiguration,
+    Gemini,
+    OpenAICompletionAPI,
+    OpenAIAssistantAPI,
+    MistralCompletion
+)
 
 
 class Main:
